@@ -1,0 +1,184 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Form;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Requests\ManagementRequest;
+
+class ManagementController extends Controller
+{
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $students=User::all();
+
+        //cek user role
+        $user=auth()->user()->role_id;
+        if($user == '2'){
+            return redirect('/')->with('error','User unauthorize');
+        }
+        // dd($students);
+        return view('admin.dashboard')->with('students',$students);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $name=auth()->user()->name;
+        $id=auth()->user()->id;
+
+        $user=User::find($id);
+        //cek user apakah sudah membuat form
+        if(isset($user->form->user_id) == false){
+            return view('admin.form');
+        }
+        return redirect('/')->with('error','You Already Have Created Form');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ManagementRequest $request)
+    {
+        $name=auth()->user()->name;
+        $id=auth()->user()->id;
+        
+
+        //create form
+        $form=new Form;
+        $form->name=$name;
+        $form->user_id=$id;
+        $form->gender=$request->input('gender');
+        $form->date_of_birth=$request->input('date_of_birth');
+        $form->religion=$request->input('religion');
+        $form->name_of_father=$request->input('name_of_father');
+        $form->name_of_mother=$request->input('name_of_mother');
+        $form->phone_number_1=$request->input('phone_number_1');
+        $form->phone_number_2=$request->input('phone_number_2');
+        $form->district=$request->input('district');
+        $form->sub_district=$request->input('sub_district');
+        $form->sub_district=$request->input('sub_district');
+        $form->urban_village=$request->input('urban_village');
+        $form->address=$request->input('address');
+        $form->zip_code=$request->input('zip_code');
+        $form->from_jhs=$request->input('from_jhs');
+        $form->nisn=$request->input('nisn');
+        $form->no_kk=$request->input('no_kk');
+        $form->nik_of_student=$request->input('nik_of_student');
+        $form->nik_of_father=$request->input('nik_of_father');
+        $form->nik_of_mother=$request->input('nik_of_mother');
+        $form->father_occupation=$request->input('father_occupation');
+        $form->mother_occupation=$request->input('mother_occupation');
+        $form->majors_interest=$request->input('majors_interest');
+        $form->save();
+
+        return redirect('/form')->with('success','Form Created');
+
+
+        // dd($form);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $user=User::find($id);
+        //cek user role
+        $user=auth()->user()->role_id;
+        if($user == '2'){
+            return redirect('/')->with('error','User unauthorize');
+        }
+        //cek user if they have created form yet
+        if(isset($user->form->user_id) == false){
+            return redirect('/')->with('error','The user not created form yet');
+        }
+        return view('admin.edit')->with('user',$user);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(ManagementRequest $request, $id)
+    {
+        $form=Form::find($id);
+        $form->name=$request->input('name');
+        $form->user_id=$id;
+        $form->gender=$request->input('gender');
+        $form->date_of_birth=$request->input('date_of_birth');
+        $form->religion=$request->input('religion');
+        $form->name_of_father=$request->input('name_of_father');
+        $form->name_of_mother=$request->input('name_of_mother');
+        $form->phone_number_1=$request->input('phone_number_1');
+        $form->phone_number_2=$request->input('phone_number_2');
+        $form->district=$request->input('district');
+        $form->sub_district=$request->input('sub_district');
+        $form->sub_district=$request->input('sub_district');
+        $form->urban_village=$request->input('urban_village');
+        $form->address=$request->input('address');
+        $form->zip_code=$request->input('zip_code');
+        $form->from_jhs=$request->input('from_jhs');
+        $form->nisn=$request->input('nisn');
+        $form->no_kk=$request->input('no_kk');
+        $form->nik_of_student=$request->input('nik_of_student');
+        $form->nik_of_father=$request->input('nik_of_father');
+        $form->nik_of_mother=$request->input('nik_of_mother');
+        $form->father_occupation=$request->input('father_occupation');
+        $form->mother_occupation=$request->input('mother_occupation');
+        $form->majors_interest=$request->input('majors_interest');
+        $form->save();
+
+        return redirect('/')->with('success','Form Updated');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}
