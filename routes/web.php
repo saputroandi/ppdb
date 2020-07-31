@@ -20,7 +20,7 @@ Route::get('/',function(){
     return view('home');
 });
 Route::resource('/form', 'ManagementController');
-Route::get('/dashboard', 'ManagementController@index');
+// Route::get('/dashboard', 'ManagementController@index');
 
 // Route::post('/form','ManagementController@store');
 // Route::get('/form','ManagementController@create');

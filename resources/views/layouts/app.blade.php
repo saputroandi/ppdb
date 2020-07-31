@@ -37,7 +37,9 @@
                             @auth
                                 <a class="nav-item nav-link" href="/">Home</a>
                                 @if(Auth::user()->role_id == '1')
-                                    <a class="nav-item nav-link" href="/dashboard">Dashboard</a>
+                                    <a class="nav-item nav-link" href="/form">Dashboard</a>
+                                @else
+                                    <a class="nav-item nav-link" href="/form">My Form</a>
                                 @endif
                                 <a class="nav-item nav-link" href="/form/create">Create Form</a>
                             @endauth

@@ -26,11 +26,21 @@ class ManagementController extends Controller
     public function index()
     {
         $students=User::all();
+        
+        $id=auth()->user()->id;
+        $user=User::find($id);
+        //make sure user created form yet
+        if(isset($user->form->user_id) == false){
+            return redirect('/')->with('success','You have to create form first');
+        }
+
+        //ambil form id melalui user
+        $form_id=$user->form->user_id;
 
         //cek user role
-        $user=auth()->user()->role_id;
-        if($user == '2'){
-            return redirect('/')->with('error','User unauthorize');
+        $role=auth()->user()->role_id;
+        if($role == '2'){
+            return redirect('/form/'.$form_id);
         }
         // dd($students);
         return view('admin.dashboard')->with('students',$students);
@@ -51,7 +61,7 @@ class ManagementController extends Controller
         if(isset($user->form->user_id) == false){
             return view('admin.form');
         }
-        return redirect('/')->with('error','You Already Have Created Form');
+        return redirect('/')->with('success','You Already Have Created Form');
     }
 
     /**
@@ -94,7 +104,7 @@ class ManagementController extends Controller
         $form->majors_interest=$request->input('majors_interest');
         $form->save();
 
-        return redirect('/form')->with('success','Form Created');
+        return redirect('/')->with('success','Form Created');
 
 
         // dd($form);
@@ -108,7 +118,19 @@ class ManagementController extends Controller
      */
     public function show($id)
     {
-        //
+        $userActive=User::find(auth()->user()->id);
+        if($userActive->role_id !== 1){
+            if(isset($userActive->form->user_id)==true){
+                $form=Form::where('user_id',$id)->get();
+                $form_userId=$form[0]->user_id;
+                if($userActive->id == $form_userId){
+                    return view('admin.show')->with('form',$form[0]);
+                }
+            }
+        }else{
+            $form=Form::find($id);
+            return view('admin.show')->with('form',$form);
+        }
     }
 
     /**
@@ -119,17 +141,17 @@ class ManagementController extends Controller
      */
     public function edit($id)
     {
-        $user=User::find($id);
-        //cek user role
-        $user=auth()->user()->role_id;
-        if($user == '2'){
-            return redirect('/')->with('error','User unauthorize');
+        $userActive=User::find(auth()->user()->id);
+        if($userActive->role_id !== 1){
+            $user=Form::where('user_id',$id)->get();
+            $form_userId=$user[0]->user_id;
+            if($userActive->id == $form_userId){
+                return view('admin.edit')->with('user',$user[0]);
+            }
+        }else{
+            $user=Form::where('user_id',$id)->get();
+            return view('admin.edit')->with('user',$user[0]);
         }
-        //cek user if they have created form yet
-        if(isset($user->form->user_id) == false){
-            return redirect('/')->with('error','The user not created form yet');
-        }
-        return view('admin.edit')->with('user',$user);
     }
 
     /**
@@ -143,7 +165,6 @@ class ManagementController extends Controller
     {
         $form=Form::find($id);
         $form->name=$request->input('name');
-        $form->user_id=$id;
         $form->gender=$request->input('gender');
         $form->date_of_birth=$request->input('date_of_birth');
         $form->religion=$request->input('religion');
@@ -179,6 +200,18 @@ class ManagementController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user=User::find($id);
+        // dd($user->id);
+        //cek user role
+        $role=auth()->user()->role_id;
+        // dd($role);
+        if($role !== 1){
+            return redirect('/')->with('error','User unauthorize');
+        }
+
+        User::find($user->id)->delete();
+        Form::where('user_id',$user->id)->delete();
+        // User::where($id)->destroy($id);
+        return redirect('/')->with('success','User Delete');
     }
 }
