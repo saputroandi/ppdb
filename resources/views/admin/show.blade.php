@@ -10,6 +10,10 @@
     </thead>
     <tbody>
         <tr>
+            <td>Photo</td>
+            <td>{{$form->photo}}</td>
+        </tr>
+        <tr>
             <td>Gender</td>
             <td>{{$form->gender}}</td>
         </tr>
