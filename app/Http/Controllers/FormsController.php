@@ -43,7 +43,7 @@ class FormsController extends Controller
         
     }
 
-    public function storeForm(FormRequest $request)
+    public function storeForm(FormsRequest $request)
     {
 
         $form= new Form;
