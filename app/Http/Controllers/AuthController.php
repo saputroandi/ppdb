@@ -7,22 +7,33 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Requests\AuthRequest;
+use Illuminate\Auth\SessionGuard;
 
 class AuthController extends Controller
 {
-    public $loginAfterSignUp = true;
 
     public function login(Request $request)
     {
-        $credentials=$request->only('email','password');
-        $token=null;
+        $this->validate($request, [
+            'email' => 'required',
+            'password' => 'required',
+        ]);
 
-        if(!$token=JWTAuth::attempt($credentials)){
+        $credentials=$request->only(['email','password']);
+        $token=JWTAuth::attempt($credentials);
+
+        if(!$token){
             return response()->json([
                 'status'=>false,
                 'message'=>'Unauthorized'
-            ]);
+            ],400);
         }
+
+        return (new UserResource($request->user()))
+            ->additional(['meta' => [
+            'status' => true,
+            'token' => $token,
+            ]]);
     }
 
     public function register(AuthRequest $request)
@@ -35,21 +46,15 @@ class AuthController extends Controller
         $user->password=bcrypt($request->password);
         $user->save();
 
-        // if($this->loginAfterSignUp){
-        //     return $this->login($request);
-        // }
-        $credentials=$request->only('email','password');
-        $token=null;
+        $credentials=$request->only(['email','password']);
+        $token=JWTAuth::attempt($credentials);
 
-        if(!$token){
-            $token=JWTAuth::attempt($credentials);
-            return (new UserResource($request->user()))
-                ->additional(['meta' => [
-                    'token' => $token,
-                ]]);
-        }
 
-        return new UserResource($user);
+        return (new UserResource($request->user()))
+            ->additional(['meta' => [
+            'status'=>true,
+            'token' => $token,
+            ]]);
     }
 
     public function logout(Request $request)

@@ -80,6 +80,7 @@ class ManagementController extends Controller
         $form=new Form;
         $form->name=$name;
         $form->user_id=$id;
+        $form->photo=$request->input('photo');
         $form->gender=$request->input('gender');
         $form->date_of_birth=$request->input('date_of_birth');
         $form->religion=$request->input('religion');
@@ -165,6 +166,7 @@ class ManagementController extends Controller
     {
         $form=Form::find($id);
         $form->name=$request->input('name');
+        $form->photo=$request->input('photo');
         $form->gender=$request->input('gender');
         $form->date_of_birth=$request->input('date_of_birth');
         $form->religion=$request->input('religion');
