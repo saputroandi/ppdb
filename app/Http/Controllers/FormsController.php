@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\FormsRequest;
 use JWTAuth;
 use App\Form;
 
@@ -47,8 +48,8 @@ class FormsController extends Controller
     {
 
         $form= new Form;
-        $form->name=$request->name;
-        $form->user_id=$request->user_id;
+        $form->name=$this->user->name;
+        $form->user_id=$this->user->id;
         $form->photo=$request->photo;
         $form->gender=$request->gender;
         $form->date_of_birth=$request->date_of_birth;
@@ -58,7 +59,6 @@ class FormsController extends Controller
         $form->phone_number_1=$request->phone_number_1;
         $form->phone_number_2=$request->phone_number_2;
         $form->district=$request->district;
-        $form->sub_district=$request->sub_district;
         $form->sub_district=$request->sub_district;
         $form->urban_village=$request->urban_village;
         $form->address=$request->address;
@@ -73,11 +73,11 @@ class FormsController extends Controller
         $form->mother_occupation=$request->mother_occupation;
         $form->majors_interest=$request->majors_interest;
 
-        if($this->user->id==$form->user_id){
+        // if($this->user->id==$form->user_id){
             if($this->user->form()->save($form)){
                 return response()->json([
                     'status'=>true,
-                    'user'=>$user,
+                    'user'=>$this->user,
                     'form'=>$form,
                 ]);
             } else {
@@ -86,11 +86,11 @@ class FormsController extends Controller
                     'message'=>'Form could not be saved'
                 ]);
             }
-        }else{
-            return response()->json([
-                'status'=>false,
-                'message'=>'Unauthorized',
-            ],401);
-        }
+        // }else{
+        //     return response()->json([
+        //         'status'=>false,
+        //         'message'=>'Unauthorized',
+        //     ],401);
+        // }
     }
 }

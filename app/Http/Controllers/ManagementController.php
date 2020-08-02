@@ -90,7 +90,6 @@ class ManagementController extends Controller
         $form->phone_number_2=$request->input('phone_number_2');
         $form->district=$request->input('district');
         $form->sub_district=$request->input('sub_district');
-        $form->sub_district=$request->input('sub_district');
         $form->urban_village=$request->input('urban_village');
         $form->address=$request->input('address');
         $form->zip_code=$request->input('zip_code');
