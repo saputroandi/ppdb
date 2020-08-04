@@ -15,45 +15,45 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required',
+            'email'    => 'required',
             'password' => 'required',
         ]);
 
-        $credentials=$request->only(['email','password']);
-        $token=JWTAuth::attempt($credentials);
+        $credentials = $request->only(['email','password']);
+        $token       = JWTAuth::attempt($credentials);
 
         if(!$token){
             return response()->json([
-                'status'=>false,
-                'message'=>'Unauthorized'
+                'status'  => false,
+                'message' => 'Unauthorized'
             ],400);
         }
 
         return (new UserResource($request->user()))
             ->additional(['meta' => [
             'status' => true,
-            'token' => $token,
+            'token'  => $token,
             ]]);
     }
 
     public function register(AuthRequest $request)
     {
 
-        $user=new User;
-        $user->name=$request->name;
-        $user->role_id='2';
-        $user->email=$request->email;
-        $user->password=bcrypt($request->password);
+        $user           = new User;
+        $user->name     = $request->name;
+        $user->role_id  = '2';
+        $user->email    = $request->email;
+        $user->password = bcrypt($request->password);
         $user->save();
 
-        $credentials=$request->only(['email','password']);
-        $token=JWTAuth::attempt($credentials);
+        $credentials = $request->only(['email','password']);
+        $token       = JWTAuth::attempt($credentials);
 
 
         return (new UserResource($request->user()))
             ->additional(['meta' => [
-            'status'=>true,
-            'token' => $token,
+            'status' => true,
+            'token'  => $token,
             ]]);
     }
 
@@ -61,20 +61,20 @@ class AuthController extends Controller
     {
         //user harus memasukan parameter token sebelum melakukan logout
         $this->validate($request,[
-            'token'=>'required'
+            'token' => 'required'
         ]);
 
         try{
-            JWTAuth::invalidate($request->token);
+            JWTAuth:: invalidate($request->token);
 
             return response()->json([
-                'status'=>true,
-                'message'=>'User logged out successfully'
+                'status'  => true,
+                'message' => 'User logged out successfully'
             ]);
         }catch(JWTException $exception){
             return response()->json([
-                'status'=>false,
-                'message'=>"User cannot be logged out"
+                'status'  => false,
+                'message' => "User cannot be logged out"
             ]);
         }
     }
