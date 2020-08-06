@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPhotoToFormsTable extends Migration
+class CreateNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class AddPhotoToFormsTable extends Migration
      */
     public function up()
     {
-        Schema::table('forms', function (Blueprint $table) {
-            $table->longText('photo')->after('name');
+        Schema::create('news', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('user_id');
+            $table->string('post_title');
+            $table->string('post_date');
+            $table->string('post_content');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +30,6 @@ class AddPhotoToFormsTable extends Migration
      */
     public function down()
     {
-        Schema::table('forms', function (Blueprint $table) {
-            $table->longText('photo')->after('password');
-        });
+        Schema::dropIfExists('news');
     }
 }

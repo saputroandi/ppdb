@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         $this->validate($request, [
             'email'    => 'required',
-            'password' => 'required',
+            'password' => 'required|min:8',
         ]);
 
         $credentials = $request->only(['email','password']);
@@ -26,7 +26,7 @@ class AuthController extends Controller
             return response()->json([
                 'status'  => false,
                 'message' => 'Unauthorized'
-            ],400);
+            ],401);
         }
 
         return (new UserResource($request->user()))

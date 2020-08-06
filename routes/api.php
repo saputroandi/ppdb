@@ -23,8 +23,7 @@ Route:: post('/register','AuthController@register');
 
 Route::group(['middleware'=>'auth.jwt'],function(){
     Route:: post('/store-form','FormsController@storeForm');
-    Route:: post('/update-form','FormsController@updateForm');
-    Route:: get('/user-form/{id}','FormsController@userForm');
-    // Route::get('/Form','UsersController@index');
+    Route:: patch('/update-form/{id}','FormsController@updateForm');
+    Route:: get('/show-form/{id}','FormsController@showForm');
     Route:: get('/logout','AuthController@logout');
 });

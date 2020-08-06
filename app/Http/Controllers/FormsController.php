@@ -16,12 +16,11 @@ class FormsController extends Controller
         $this->user = JWTAuth::parseToken()->authenticate();
     }
 
-    public function userForm($idUser)
+    public function showForm($idUser)
     {
         $form = Form::where('user_id', $idUser)->get();
         $form = isset($form[0]) == false ? false : $form[0];
         $user = $this->user;
-        dd($user);
 
         if(isset($form->user_id)==true){
             if($this->user->id == $form->user_id){
@@ -33,8 +32,8 @@ class FormsController extends Controller
             }else{
                 return response()->json([
                     'status'  => false,
-                    'message' => 'Unauthorized',
-                ],401);
+                    'message' => 'Forbidden',
+                ],403);
             }
         }else{
             return response()->json([
@@ -48,8 +47,44 @@ class FormsController extends Controller
     public function storeForm(FormsRequest $request)
     {
 
-        $form                    = new Form;
-        $form->name              = $this->user->name;
+        $form = new Form;
+        $form = $request->all();
+        $form['user_id'] = $this->user->id;
+
+        $checkUser = Form::where('user_id', $this->user->id)->get();
+        if(isset($checkUser[0]->user_id)==true){
+            return response()->json([
+                'status'  => false,
+                'message' => 'You have created form',
+            ],400);
+        }
+
+        if(Form::create($form)){
+            return response()->json([
+                'status' => true,
+                'user'   => $this->user,
+                'form'   => $form,
+            ]);
+            } else {
+            return response()->json([
+                'status'  => false,
+                'message' => 'Form could not be saved'
+            ]);
+        }
+    }
+
+    public function updateForm(FormsRequest $request,$idUser)
+    {
+        $form = Form::where('user_id', $idUser)->first();
+
+        if($this->user->id !== $form->user_id){
+            return response()->json([
+                'status'  => false,
+                'message' => 'Forbidden',
+            ],403);
+        }
+
+        $form->name              = $request->name;
         $form->user_id           = $this->user->id;
         $form->photo             = $request->photo;
         $form->gender            = $request->gender;
@@ -74,30 +109,26 @@ class FormsController extends Controller
         $form->mother_occupation = $request->mother_occupation;
         $form->majors_interest   = $request->majors_interest;
 
-        $checkUser = Form::where('user_id', $this->user->id)->get();
-        if(isset($checkUser[0]->user_id)==true){
+
+        if(isset($form)){
+            if($form->save()){
+                return response()->json([
+                    'status'  => true,
+                    'user'    => $this->user,
+                    'form'    => $form,
+                    'message' => 'Form updated'
+                ]);
+                } else {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Form could not be saved'
+                ]);
+            }
+        }else{
             return response()->json([
                 'status'  => false,
-                'message' => 'You have created form',
-            ],400);
+                'message' => 'Forbidden',
+            ],403);
         }
-
-        if($this->user->form()->save($form)){
-            return response()->json([
-                'status' => true,
-                'user'   => $this->user,
-                'form'   => $form,
-            ]);
-            } else {
-            return response()->json([
-                'status'  => false,
-                'message' => 'Form could not be saved'
-            ]);
-        }
-    }
-
-    public function updateForm($idUser)
-    {
-        $form = Form::where('user_id', $idUser)->get();
     }
 }

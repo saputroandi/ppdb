@@ -56,4 +56,24 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(Form::class,'user_id');
     }
+    public function grade()
+    {
+        return $this->hasOne(Grade::class,'user_id');
+    }
+    public function document()
+    {
+        return $this->hasOne(Document::class,'user_id');
+    }
+    public function news()
+    {
+        return $this->hasMany(News::class,'user_id');
+    }
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class,'user_id');
+    }
+    public function paymentconfirmation()
+    {
+        return $this->hasOne(PaymentConfirmation::class,'user_id');
+    }
 }
