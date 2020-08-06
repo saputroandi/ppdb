@@ -25,19 +25,19 @@ class FormsController extends Controller
         if(isset($form->user_id)==true){
             if($this->user->id == $form->user_id){
                 return response()->json([
-                    'status' => true,
+                    'status' => 200,
                     'user'   => $user,
                     'form'   => $form,
                 ]);
             }else{
                 return response()->json([
-                    'status'  => false,
+                    'status'  => 403,
                     'message' => 'Forbidden',
                 ],403);
             }
         }else{
             return response()->json([
-                'status'  => false,
+                'status'  => 404,
                 'message' => 'Form Not Found',
             ],404);
         }

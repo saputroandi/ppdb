@@ -20,10 +20,16 @@ use Illuminate\Support\Facades\Route;
 
 Route:: post('/login','AuthController@login');
 Route:: post('/register','AuthController@register');
+Route:: get('/logout','AuthController@logout')->middleware('auth.jwt');
 
-Route::group(['middleware'=>'auth.jwt'],function(){
-    Route:: post('/store-form','FormsController@storeForm');
-    Route:: patch('/update-form/{id}','FormsController@updateForm');
-    Route:: get('/show-form/{id}','FormsController@showForm');
-    Route:: get('/logout','AuthController@logout');
+Route::prefix('forms')->group(['middleware'=>'auth.jwt'],function(){
+    Route:: post('/store','FormsController@storeForm');
+    Route:: patch('/update/{id}','FormsController@updateForm');
+    Route:: get('/show/{id}','FormsController@showForm');
+});
+
+Route::prefix('grade')->group(['middleware'=>'auth.jwt'],function(){
+    Route:: post('/store','GradeController@storeGrade');
+    Route:: patch('/update/{id}','GradeController@updateGrade');
+    Route:: get('/show/{id}','GradeController@showGrade');
 });

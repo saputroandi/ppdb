@@ -18,7 +18,7 @@ class CreatePaymentConfirmationsTable extends Migration
             $table->bigInteger('user_id');
             $table->string('pay_date');
             $table->string('bank_name');
-            $table->integer('bank_account');
+            $table->string('bank_account');
             $table->string('status');
             $table->string('note')->nullable();
             $table->timestamps();

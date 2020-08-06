@@ -22,6 +22,7 @@ class CreateGradesTable extends Migration
             $table->integer('semester_4');
             $table->integer('semester_5');
             $table->integer('semester_6');
+            $table->integer('average');
             $table->timestamps();
         });
     }

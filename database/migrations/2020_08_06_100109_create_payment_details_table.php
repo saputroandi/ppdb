@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNewsTable extends Migration
+class CreatePaymentDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-        Schema::create('news', function (Blueprint $table) {
+        Schema::create('payment_details', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->string('post_title');
-            $table->string('post_content');
+            $table->bigInteger('cost_type');
+            $table->bigInteger('session_1');
+            $table->bigInteger('session_2');
+            $table->bigInteger('session_3');
+            $table->string('note');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateNewsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('news');
+        Schema::dropIfExists('payment_details');
     }
 }
