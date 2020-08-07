@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// use App\Http\Requests\GradeRequest;
+use App\Http\Requests\GradeRequest;
 use JWTAuth;
 use App\Grade;
 
@@ -35,7 +35,7 @@ class GradeController extends Controller
         }else{
             return response()->json([
                 'status'  => 404,
-                'message' => 'Form Not Found',
+                'message' => 'Grade Not Found',
             ],404);
         }
         
@@ -46,27 +46,70 @@ class GradeController extends Controller
 
         $grade = new Grade;
         $grade = $request->all();
+        $grade['average']=($grade['semester_1']+$grade['semester_2']+$grade['semester_3']+$grade['semester_4']+$grade['semester_5']+$grade['semester_6'])/6;
         $grade['user_id'] = $this->user->id;
 
-        $checkUser = Form::where('user_id', $this->user->id)->get();
-        if(isset($checkUser[0]->user_id)==true){
+        $checkUser = Grade::where('user_id', $this->user->id)->first();
+        if(isset($checkUser->user_id)==true){
             return response()->json([
-                'status'  => false,
-                'message' => 'You have created form',
+                'status'  => 400,
+                'message' => 'You had inserted grade',
             ],400);
         }
 
-        if(Form::create($form)){
+        if(Grade::create($grade)){
             return response()->json([
-                'status' => true,
+                'status' => 200,
                 'user'   => $this->user,
-                'form'   => $form,
+                'grade'   => $grade,
             ]);
             } else {
             return response()->json([
                 'status'  => false,
                 'message' => 'Form could not be saved'
             ]);
+        }
+    }
+
+    public function updateGrade(GradeRequest $request,$idUser)
+    {
+        $grade = Grade::where('user_id', $idUser)->first();
+
+        if($this->user->id !== $grade->user_id){
+            return response()->json([
+                'status'  => 403,
+                'message' => 'Forbidden',
+            ],403);
+        }
+
+        $grade->user_id    = $this->user->id;
+        $grade->semester_1 = $request->semester_1;
+        $grade->semester_2 = $request->semester_2;
+        $grade->semester_3 = $request->semester_3;
+        $grade->semester_4 = $request->semester_4;
+        $grade->semester_5 = $request->semester_5;
+        $grade->semester_6 = $request->semester_6;
+        $grade->average    = ($grade->semester_1+$grade->semester_2+$grade->semester_3+$grade->semester_4+$grade->semester_5+$grade->semester_6)/6;
+
+        if(isset($grade)){
+            if($grade->save()){
+                return response()->json([
+                    'status'  => 200,
+                    'user'    => $this->user,
+                    'grade'    => $grade,
+                    'message' => 'Grade updated'
+                ]);
+                } else {
+                return response()->json([
+                    'status'  => false,
+                    'message' => 'Grade could not be saved'
+                ]);
+            }
+        }else{
+            return response()->json([
+                'status'  => 403,
+                'message' => 'Forbidden',
+            ],403);
         }
     }
 }

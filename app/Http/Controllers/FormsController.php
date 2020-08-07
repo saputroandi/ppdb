@@ -94,6 +94,7 @@ class FormsController extends Controller
         $form->name_of_mother    = $request->name_of_mother;
         $form->phone_number_1    = $request->phone_number_1;
         $form->phone_number_2    = $request->phone_number_2;
+        $form->province          = $request->province;
         $form->district          = $request->district;
         $form->sub_district      = $request->sub_district;
         $form->urban_village     = $request->urban_village;
@@ -107,7 +108,7 @@ class FormsController extends Controller
         $form->nik_of_mother     = $request->nik_of_mother;
         $form->father_occupation = $request->father_occupation;
         $form->mother_occupation = $request->mother_occupation;
-        $form->majors_interest   = $request->majors_interest;
+        $form->majors_interest_id   = $request->majors_interest_id;
 
 
         if(isset($form)){

@@ -31,6 +31,7 @@ class FormsRequest extends FormRequest
             'name_of_mother'    => 'required',
             'phone_number_1'    => 'required|digits_between:11,16',
             'phone_number_2'    => 'required|digits_between:11,16',
+            'province'          => 'required',
             'district'          => 'required',
             'sub_district'      => 'required',
             'urban_village'     => 'required',
@@ -44,7 +45,7 @@ class FormsRequest extends FormRequest
             'nik_of_mother'     => 'required|numeric',
             'father_occupation' => 'required',
             'mother_occupation' => 'required',
-            'majors_interest'   => 'required'
+            'majors_interest_id'   => 'required'
         ];
     }
 }

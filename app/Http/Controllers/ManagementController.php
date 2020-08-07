@@ -201,18 +201,15 @@ class ManagementController extends Controller
      */
     public function destroy($id)
     {
-        $user=User::find($id);
-        // dd($user->id);
-        //cek user role
-        $role=auth()->user()->role_id;
-        // dd($role);
+        $user = User::find($id);
+        $role = auth()->user()->role_id;
+
         if($role !== 1){
             return redirect('/')->with('error','User unauthorize');
         }
 
-        User::find($user->id)->delete();
-        Form::where('user_id',$user->id)->delete();
-        // User::where($id)->destroy($id);
+        User:: find($user->id)->delete();
+        Form:: where('user_id',$user->id)->delete();
         return redirect('/')->with('success','User Delete');
     }
 }
