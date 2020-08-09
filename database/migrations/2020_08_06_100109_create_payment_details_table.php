@@ -15,7 +15,7 @@ class CreatePaymentDetailsTable extends Migration
     {
         Schema::create('payment_details', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('cost_type');
+            $table->string('cost_type');
             $table->bigInteger('session_1');
             $table->bigInteger('session_2');
             $table->bigInteger('session_3');

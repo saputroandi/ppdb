@@ -58,3 +58,41 @@ Route::group([
     Route:: patch('/update/{id}','NewsController@updateNews');
     Route:: delete('/delete/{id}','NewsController@deleteNews');
 });
+
+Route::group([
+    'middleware' => 'auth.jwt',
+    'prefix'     => 'schedule',
+    ],function(){
+    Route:: post('/store','ScheduleController@storeSchedule');
+    Route:: get('/show','ScheduleController@showAllSchedule');
+    Route:: patch('/update/{id}','ScheduleController@updateSchedule');
+    Route:: delete('/delete/{id}','ScheduleController@deleteSchedule');
+});
+
+Route::group([
+    'middleware' => 'auth.jwt',
+    'prefix'     => 'payment',
+    ],function(){
+    Route:: post('/store','PaymentConfirmationController@storePaymentConfirmation');
+    Route:: patch('/update/{id}','PaymentConfirmationController@updatePaymentConfirmation');
+    Route:: get('/show/{id}','PaymentConfirmationController@showPaymentConfirmation');
+});
+
+Route::group([
+    'middleware' => 'auth.jwt',
+    'prefix'     => 'payment-details',
+    ],function(){
+    Route:: post('/store','PaymentDetailsController@storePaymentDetails');
+    Route:: get('/show','PaymentDetailsController@showPaymentDetails');
+    Route:: patch('/update/{id}','PaymentDetailsController@updatePaymentDetails');
+});
+
+Route::group([
+    'middleware' => 'auth.jwt',
+    'prefix'     => 'interest',
+    ],function(){
+    Route:: post('/store','MajorInterestController@storeInterest');
+    Route:: get('/show','MajorInterestController@showAllInterest');
+    Route:: patch('/update/{id}','MajorInterestController@updateInterest');
+    Route:: delete('/delete/{id}','MajorInterestController@deleteInterest');
+});

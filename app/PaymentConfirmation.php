@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaymentConfirmation extends Model
 {
-    protected $fillable=['pay_date','bank_name','bank_account','status','note'];
+    protected $fillable=['user_id','pay_date','bank_name','bank_account','status','note'];
 
     public function user()
     {

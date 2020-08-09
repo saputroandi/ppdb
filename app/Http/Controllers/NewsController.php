@@ -12,6 +12,12 @@ class NewsController extends Controller
     public function __construct()
     {
         $this->user = JWTAuth::parseToken()->authenticate();
+    }
+
+    public function showAllNews()
+    {
+        $news = News::orderBy('id','DESC')->get();
+        $user = $this->user;
 
         if($this->user->role_id !== 1){
             return response()->json([
@@ -19,12 +25,6 @@ class NewsController extends Controller
                 'message' => 'Forbidden',
             ],403);
         }
-    }
-
-    public function showAllNews()
-    {
-        $news = News::orderBy('id','DESC')->get();
-        $user = $this->user;
 
         if(isset($news)==true){
                 return response()->json([
@@ -47,6 +47,13 @@ class NewsController extends Controller
         $news = $request->all();
         $news['user_id'] = $this->user->id;
 
+        if($this->user->role_id !== 1){
+            return response()->json([
+                'status'  => 403,
+                'message' => 'Forbidden',
+            ],403);
+        }
+
         if(News::create($news)){
             return response()->json([
                 'status' => 200,
@@ -64,9 +71,24 @@ class NewsController extends Controller
     public function updateNews(NewsRequest $request,$idNews)
     {
         $news               = News::where('id', $idNews)->first();
+
+        if(isset($news)==false){
+            return response()->json([
+                'status'  => 400,
+                'message' => 'Not found',
+            ],400);
+        }
+
         $news->user_id      = $this->user->id;
         $news->post_title   = $request->post_title;
         $news->post_content = $request->post_content;
+
+        if($this->user->role_id !== 1){
+            return response()->json([
+                'status'  => 403,
+                'message' => 'Forbidden',
+            ],403);
+        }
 
 
             if($news->save()){
@@ -87,6 +109,20 @@ class NewsController extends Controller
     public function deleteNews($idNews)
     {
         $news = News::find($idNews);
+
+        if($this->user->role_id !== 1){
+            return response()->json([
+                'status'  => 403,
+                'message' => 'Forbidden',
+            ],403);
+        }
+
+        if(isset($news)==false){
+            return response()->json([
+                'status'  => 400,
+                'message' => 'Not found',
+            ],400);
+        }
 
             if($news->delete()){
                 return response()->json([

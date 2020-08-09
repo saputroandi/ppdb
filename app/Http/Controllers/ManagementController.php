@@ -141,15 +141,15 @@ class ManagementController extends Controller
      */
     public function edit($id)
     {
-        $userActive=User::find(auth()->user()->id);
+        $userActive = User::find(auth()->user()->id);
         if($userActive->role_id !== 1){
-            $user=Form::where('user_id',$id)->get();
-            $form_userId=$user[0]->user_id;
+            $user        = Form::where('user_id',$id)->get();
+            $form_userId = $user[0]->user_id;
             if($userActive->id == $form_userId){
                 return view('admin.edit')->with('user',$user[0]);
             }
         }else{
-            $user=Form::where('user_id',$id)->get();
+            $user = Form::where('user_id',$id)->get();
             return view('admin.edit')->with('user',$user[0]);
         }
     }
@@ -163,31 +163,31 @@ class ManagementController extends Controller
      */
     public function update(ManagementRequest $request, $id)
     {
-        $form=Form::find($id);
-        $form->name=$request->input('name');
-        $form->photo=$request->input('photo');
-        $form->gender=$request->input('gender');
-        $form->date_of_birth=$request->input('date_of_birth');
-        $form->religion=$request->input('religion');
-        $form->name_of_father=$request->input('name_of_father');
-        $form->name_of_mother=$request->input('name_of_mother');
-        $form->phone_number_1=$request->input('phone_number_1');
-        $form->phone_number_2=$request->input('phone_number_2');
-        $form->district=$request->input('district');
-        $form->sub_district=$request->input('sub_district');
-        $form->sub_district=$request->input('sub_district');
-        $form->urban_village=$request->input('urban_village');
-        $form->address=$request->input('address');
-        $form->zip_code=$request->input('zip_code');
-        $form->from_jhs=$request->input('from_jhs');
-        $form->nisn=$request->input('nisn');
-        $form->no_kk=$request->input('no_kk');
-        $form->nik_of_student=$request->input('nik_of_student');
-        $form->nik_of_father=$request->input('nik_of_father');
-        $form->nik_of_mother=$request->input('nik_of_mother');
-        $form->father_occupation=$request->input('father_occupation');
-        $form->mother_occupation=$request->input('mother_occupation');
-        $form->majors_interest=$request->input('majors_interest');
+        $form                    = Form::find($id);
+        $form->name              = $request->input('name');
+        $form->photo             = $request->input('photo');
+        $form->gender            = $request->input('gender');
+        $form->date_of_birth     = $request->input('date_of_birth');
+        $form->religion          = $request->input('religion');
+        $form->name_of_father    = $request->input('name_of_father');
+        $form->name_of_mother    = $request->input('name_of_mother');
+        $form->phone_number_1    = $request->input('phone_number_1');
+        $form->phone_number_2    = $request->input('phone_number_2');
+        $form->province          = $request->input('province');
+        $form->district          = $request->input('district');
+        $form->sub_district      = $request->input('sub_district');
+        $form->urban_village     = $request->input('urban_village');
+        $form->address           = $request->input('address');
+        $form->zip_code          = $request->input('zip_code');
+        $form->from_jhs          = $request->input('from_jhs');
+        $form->nisn              = $request->input('nisn');
+        $form->no_kk             = $request->input('no_kk');
+        $form->nik_of_student    = $request->input('nik_of_student');
+        $form->nik_of_father     = $request->input('nik_of_father');
+        $form->nik_of_mother     = $request->input('nik_of_mother');
+        $form->father_occupation = $request->input('father_occupation');
+        $form->mother_occupation = $request->input('mother_occupation');
+        $form->majors_interest   = $request->input('majors_interest');
         $form->save();
 
         return redirect('/')->with('success','Form Updated');

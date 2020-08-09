@@ -52,7 +52,7 @@ class DocumentController extends Controller
         if(isset($checkUser->user_id)==true){
             return response()->json([
                 'status'  => 400,
-                'message' => 'You had inputed Document',
+                'message' => 'You had uploaded Document',
             ],400);
         }
 
@@ -74,11 +74,18 @@ class DocumentController extends Controller
     {
         $document = Document::where('user_id', $idUser)->first();
 
-        if($this->user->id !== $document->user_id){
+        if(isset($document)){
+            if($this->user->id !== $document->user_id){
+                return response()->json([
+                    'status'  => 403,
+                    'message' => 'Forbidden',
+                ],403);
+            }
+        }else{
             return response()->json([
-                'status'  => 403,
-                'message' => 'Forbidden',
-            ],403);
+                'status'  => 400,
+                'message' => 'Not found',
+            ],400);
         }
 
         $document->user_id        = $this->user->id;

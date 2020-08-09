@@ -66,7 +66,7 @@ class GradeController extends Controller
             } else {
             return response()->json([
                 'status'  => false,
-                'message' => 'Form could not be saved'
+                'message' => 'Grade could not be saved'
             ]);
         }
     }
@@ -75,12 +75,20 @@ class GradeController extends Controller
     {
         $grade = Grade::where('user_id', $idUser)->first();
 
-        if($this->user->id !== $grade->user_id){
+        if(isset($grade)){
+            if($this->user->id !== $grade->user_id){
+                return response()->json([
+                    'status'  => 403,
+                    'message' => 'Forbidden',
+                ],403);
+            }
+        }else{
             return response()->json([
-                'status'  => 403,
-                'message' => 'Forbidden',
-            ],403);
+                'status'  => 400,
+                'message' => 'Not found',
+            ],400);
         }
+        
 
         $grade->user_id    = $this->user->id;
         $grade->semester_1 = $request->semester_1;
@@ -102,7 +110,7 @@ class GradeController extends Controller
                 } else {
                 return response()->json([
                     'status'  => false,
-                    'message' => 'Grade could not be saved'
+                    'message' => 'Grade could not be update'
                 ]);
             }
         }else{
