@@ -24,6 +24,14 @@ Route:: get('/logout','AuthController@logout')->middleware('auth.jwt');
 
 Route::group([
     'middleware' => 'auth.jwt',
+    'prefix'     => 'users',
+    ],function(){
+    Route:: patch('/update-pass/{id}','UsersController@updatePass');
+    Route:: patch('/update/{id}','UsersController@updateUser');
+    Route:: get('/show/{id}','UsersController@showUser');
+});
+Route::group([
+    'middleware' => 'auth.jwt',
     'prefix'     => 'forms',
     ],function(){
     Route:: post('/store','FormsController@storeForm');

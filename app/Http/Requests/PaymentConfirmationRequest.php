@@ -30,4 +30,11 @@ class PaymentConfirmationRequest extends FormRequest
             'status'       => 'required',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'required'=>'Field ini tidak boleh kosong',
+        ];
+    }
 }

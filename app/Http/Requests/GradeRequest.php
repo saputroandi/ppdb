@@ -32,4 +32,12 @@ class GradeRequest extends FormRequest
             'semester_6'            => 'required|numeric',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'required'=>'Field ini tidak boleh kosong',
+            'numeric'=>'Field ini hanya boleh berupa angka',
+        ];
+    }
 }

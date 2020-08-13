@@ -29,4 +29,16 @@ class AuthRequest extends FormRequest
             'password' => ['required', 'string', 'min:8'],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required'     => 'Nama tidak boleh kosong',
+            'email.required'    => 'Email tidak boleh kosong',
+            'email.email'       => 'Email tidak valid',
+            'email.unique'      => 'Email telah di gunakan',
+            'password.required' => 'Password tidak boleh kosong',
+            'password.min'      => 'Password minimal 8 karakter',
+        ];
+    }
 }

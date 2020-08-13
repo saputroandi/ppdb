@@ -14,10 +14,16 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        $messages=[
+            'email.required'    => 'Email tidak boleh kosong',
+            'email.email'       => 'Email tidak valid',
+            'password.required' => 'Password tidak boleh kosong',
+            'password.min'      => 'Password minimal 8 karakter',
+        ];
         $this->validate($request, [
-            'email'    => 'required',
+            'email'    => 'required|email',
             'password' => 'required|min:8',
-        ]);
+        ],$messages);
 
         $credentials = $request->only(['email','password']);
         $token       = JWTAuth::attempt($credentials);
@@ -57,7 +63,7 @@ class AuthController extends Controller
             ]]);
     }
 
-    public function logout(Request $request)
+    public function logout(AuthRequest $request)
     {
         //user harus memasukan parameter token sebelum melakukan logout
         $this->validate($request,[

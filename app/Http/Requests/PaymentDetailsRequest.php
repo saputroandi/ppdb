@@ -24,11 +24,11 @@ class PaymentDetailsRequest extends FormRequest
     public function rules()
     {
         return [
-            'cost_type'=>'required',
-            'session_1'=>'required|numeric',
-            'session_2'=>'required|numeric',
-            'session_3'=>'required|numeric',
-            'note'=>'required',
+            'cost_type' => 'required',
+            'session_1' => 'required|numeric',
+            'session_2' => 'required|numeric',
+            'session_3' => 'required|numeric',
+            'note'      => 'required',
         ];
     }
 }
