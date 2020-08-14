@@ -24,7 +24,7 @@ Route:: get('/logout','AuthController@logout')->middleware('auth.jwt');
 
 Route::group([
     'middleware' => 'auth.jwt',
-    'prefix'     => 'users',
+    'prefix'     => 'user',
     ],function(){
     Route:: patch('/update-pass/{id}','UsersController@updatePass');
     Route:: patch('/update/{id}','UsersController@updateUser');

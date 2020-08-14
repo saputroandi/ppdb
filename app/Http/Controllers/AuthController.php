@@ -63,7 +63,7 @@ class AuthController extends Controller
             ]]);
     }
 
-    public function logout(AuthRequest $request)
+    public function logout(Request $request)
     {
         //user harus memasukan parameter token sebelum melakukan logout
         $this->validate($request,[
