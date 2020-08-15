@@ -18,89 +18,89 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route:: post('/login','AuthController@login');
-Route:: post('/register','AuthController@register');
-Route:: get('/logout','AuthController@logout')->middleware('auth.jwt');
+Route:: post('/login','Api\AuthController@login');
+Route:: post('/register','Api\AuthController@register');
+Route:: get('/logout','Api\AuthController@logout')->middleware('auth.jwt');
 
 Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'user',
     ],function(){
-    Route:: patch('/update-pass/{id}','UsersController@updatePass');
-    Route:: patch('/update/{id}','UsersController@updateUser');
-    Route:: get('/show/{id}','UsersController@showUser');
+    Route:: patch('/update-pass/{id}','Api\UsersController@updatePass');
+    Route:: patch('/update/{id}','Api\UsersController@updateUser');
+    Route:: get('/show/{id}','Api\UsersController@showUser');
 });
 Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'forms',
     ],function(){
-    Route:: post('/store','FormsController@storeForm');
-    Route:: patch('/update/{id}','FormsController@updateForm');
-    Route:: get('/show/{id}','FormsController@showForm');
+    Route:: post('/store','Api\FormsController@storeForm');
+    Route:: patch('/update/{id}','Api\FormsController@updateForm');
+    Route:: get('/show/{id}','Api\FormsController@showForm');
 });
 
 Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'grade',
     ],function(){
-    Route:: post('/store','GradeController@storeGrade');
-    Route:: patch('/update/{id}','GradeController@updateGrade');
-    Route:: get('/show/{id}','GradeController@showGrade');
+    Route:: post('/store','Api\GradeController@storeGrade');
+    Route:: patch('/update/{id}','Api\GradeController@updateGrade');
+    Route:: get('/show/{id}','Api\GradeController@showGrade');
 });
 
 Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'document',
     ],function(){
-    Route:: post('/store','DocumentController@storeDocument');
-    Route:: patch('/update/{id}','DocumentController@updateDocument');
-    Route:: get('/show/{id}','DocumentController@showDocument');
+    Route:: post('/store','Api\DocumentController@storeDocument');
+    Route:: patch('/update/{id}','Api\DocumentController@updateDocument');
+    Route:: get('/show/{id}','Api\DocumentController@showDocument');
 });
 
 Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'news',
     ],function(){
-    Route:: post('/store','NewsController@storeNews');
-    Route:: get('/show','NewsController@showAllNews');
-    Route:: patch('/update/{id}','NewsController@updateNews');
-    Route:: delete('/delete/{id}','NewsController@deleteNews');
+    Route:: post('/store','Api\NewsController@storeNews');
+    Route:: get('/show','Api\NewsController@showAllNews');
+    Route:: patch('/update/{id}','Api\NewsController@updateNews');
+    Route:: delete('/delete/{id}','Api\NewsController@deleteNews');
 });
 
 Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'schedule',
     ],function(){
-    Route:: post('/store','ScheduleController@storeSchedule');
-    Route:: get('/show','ScheduleController@showAllSchedule');
-    Route:: patch('/update/{id}','ScheduleController@updateSchedule');
-    Route:: delete('/delete/{id}','ScheduleController@deleteSchedule');
+    Route:: post('/store','Api\ScheduleController@storeSchedule');
+    Route:: get('/show','Api\ScheduleController@showAllSchedule');
+    Route:: patch('/update/{id}','Api\ScheduleController@updateSchedule');
+    Route:: delete('/delete/{id}','Api\ScheduleController@deleteSchedule');
 });
 
 Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'payment',
     ],function(){
-    Route:: post('/store','PaymentConfirmationController@storePaymentConfirmation');
-    Route:: patch('/update/{id}','PaymentConfirmationController@updatePaymentConfirmation');
-    Route:: get('/show/{id}','PaymentConfirmationController@showPaymentConfirmation');
+    Route:: post('/store','Api\PaymentConfirmationController@storePaymentConfirmation');
+    Route:: patch('/update/{id}','Api\PaymentConfirmationController@updatePaymentConfirmation');
+    Route:: get('/show/{id}','Api\PaymentConfirmationController@showPaymentConfirmation');
 });
 
 Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'payment-details',
     ],function(){
-    Route:: post('/store','PaymentDetailsController@storePaymentDetails');
-    Route:: get('/show','PaymentDetailsController@showPaymentDetails');
-    Route:: patch('/update/{id}','PaymentDetailsController@updatePaymentDetails');
+    Route:: post('/store','Api\PaymentDetailsController@storePaymentDetails');
+    Route:: get('/show','Api\PaymentDetailsController@showPaymentDetails');
+    Route:: patch('/update/{id}','Api\PaymentDetailsController@updatePaymentDetails');
 });
 
 Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'interest',
     ],function(){
-    Route:: post('/store','MajorInterestController@storeInterest');
-    Route:: get('/show','MajorInterestController@showAllInterest');
-    Route:: patch('/update/{id}','MajorInterestController@updateInterest');
-    Route:: delete('/delete/{id}','MajorInterestController@deleteInterest');
+    Route:: post('/store','Api\MajorInterestController@storeInterest');
+    Route:: get('/show','Api\MajorInterestController@showAllInterest');
+    Route:: patch('/update/{id}','Api\MajorInterestController@updateInterest');
+    Route:: delete('/delete/{id}','Api\MajorInterestController@deleteInterest');
 });

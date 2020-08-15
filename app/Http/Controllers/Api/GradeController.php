@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\GradeRequest;
 use JWTAuth;
@@ -20,7 +21,7 @@ class GradeController extends Controller
         $user = $this->user;
 
         if(isset($grade->user_id)==true){
-            if($this->user->id == $grade->user_id){
+            if(strval($this->user->id) == $grade->user_id){
                 return response()->json([
                     'status' => 200,
                     'user'   => $user,
@@ -76,7 +77,7 @@ class GradeController extends Controller
         $grade = Grade::where('user_id', $idUser)->first();
 
         if(isset($grade)){
-            if($this->user->id !== $grade->user_id){
+            if(strval($this->user->id) !== $grade->user_id){
                 return response()->json([
                     'status'  => 403,
                     'message' => 'Forbidden',

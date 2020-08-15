@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\DocumentRequest;
 use JWTAuth;
@@ -20,7 +21,7 @@ class DocumentController extends Controller
         $user = $this->user;
 
         if(isset($document->user_id)==true){
-            if($this->user->id == $document->user_id){
+            if(strval($this->user->id) == $document->user_id){
                 return response()->json([
                     'status' => 200,
                     'user'   => $user,
@@ -75,7 +76,7 @@ class DocumentController extends Controller
         $document = Document::where('user_id', $idUser)->first();
 
         if(isset($document)){
-            if($this->user->id !== $document->user_id){
+            if(strval($this->user->id) !== $document->user_id){
                 return response()->json([
                     'status'  => 403,
                     'message' => 'Forbidden',

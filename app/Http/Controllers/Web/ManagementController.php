@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Web;
 
+use App\Http\Controllers\Controller;
 use App\Form;
 use App\User;
 use Illuminate\Http\Request;
@@ -25,24 +26,22 @@ class ManagementController extends Controller
      */
     public function index()
     {
-        $students=User::all();
+        $students = User::all();
         
-        $id=auth()->user()->id;
-        $user=User::find($id);
-        //make sure user created form yet
-        if(isset($user->form->user_id) == false){
-            return redirect('/')->with('success','You have to create form first');
-        }
+        $id   = auth()->user()->id;
+        $user = User::find($id);
 
-        //ambil form id melalui user
-        $form_id=$user->form->user_id;
+            if(isset($user->form->user_id) == false){
+                return redirect('/')->with('success','You have to create form first');
+            }
 
-        //cek user role
-        $role=auth()->user()->role_id;
-        if($role == '2'){
-            return redirect('/form/'.$form_id);
-        }
-        // dd($students);
+        $form_id = $user->form->user_id;
+        $role    = auth()->user()->role_id;
+
+            if($role == '2'){
+                return redirect('/form/'.$form_id);
+            }
+
         return view('admin.dashboard')->with('students',$students);
     }
 
@@ -54,13 +53,14 @@ class ManagementController extends Controller
     public function create()
     {
         $name=auth()->user()->name;
-        $id=auth()->user()->id;
 
+        $id=auth()->user()->id;
         $user=User::find($id);
-        //cek user apakah sudah membuat form
-        if(isset($user->form->user_id) == false){
-            return view('admin.form');
-        }
+
+            //cek user apakah sudah membuat form
+            if(isset($user->form->user_id) == false){
+                return view('admin.form');
+            }
         return redirect('/')->with('success','You Already Have Created Form');
     }
 
@@ -119,18 +119,19 @@ class ManagementController extends Controller
     public function show($id)
     {
         $userActive=User::find(auth()->user()->id);
-        if($userActive->role_id !== 1){
-            if(isset($userActive->form->user_id)==true){
-                $form=Form::where('user_id',$id)->get();
-                $form_userId=$form[0]->user_id;
-                if($userActive->id == $form_userId){
-                    return view('admin.show')->with('form',$form[0]);
+
+            if($userActive->role_id !== 1){
+                if(isset($userActive->form->user_id)==true){
+                    $form=Form::where('user_id',$id)->get();
+                    $form_userId=$form[0]->user_id;
+                    if($userActive->id == $form_userId){
+                        return view('admin.show')->with('form',$form[0]);
+                    }
                 }
+            }else{
+                $form=Form::find($id);
+                return view('admin.show')->with('form',$form);
             }
-        }else{
-            $form=Form::find($id);
-            return view('admin.show')->with('form',$form);
-        }
     }
 
     /**
@@ -142,16 +143,17 @@ class ManagementController extends Controller
     public function edit($id)
     {
         $userActive = User::find(auth()->user()->id);
-        if($userActive->role_id !== 1){
-            $user        = Form::where('user_id',$id)->get();
-            $form_userId = $user[0]->user_id;
-            if($userActive->id == $form_userId){
+
+            if($userActive->role_id !== 1){
+                $user        = Form::where('user_id',$id)->get();
+                $form_userId = $user[0]->user_id;
+                if($userActive->id == $form_userId){
+                    return view('admin.edit')->with('user',$user[0]);
+                }
+            }else{
+                $user = Form::where('user_id',$id)->get();
                 return view('admin.edit')->with('user',$user[0]);
             }
-        }else{
-            $user = Form::where('user_id',$id)->get();
-            return view('admin.edit')->with('user',$user[0]);
-        }
     }
 
     /**
@@ -201,15 +203,14 @@ class ManagementController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
         $role = auth()->user()->role_id;
 
-        if($role !== 1){
-            return redirect('/')->with('error','User unauthorize');
-        }
+            if($role !== 1){
+                return redirect('/')->with('error','User unauthorize');
+            }
 
-        User:: find($user->id)->delete();
-        Form:: where('user_id',$user->id)->delete();
+            User:: find($id)->delete();
+            Form:: where('user_id',$id)->delete();
         return redirect('/')->with('success','User Delete');
     }
 }

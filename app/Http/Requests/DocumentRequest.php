@@ -24,15 +24,15 @@ class DocumentRequest extends FormRequest
     public function rules()
     {
         return [
-            'img_semester_1' => 'required|image|max:1999',
-            'img_semester_2' => 'required|image|max:1999',
-            'img_semester_3' => 'required|image|max:1999',
-            'img_semester_4' => 'required|image|max:1999',
-            'img_semester_5' => 'required|image|max:1999',
-            'img_semester_6' => 'required|image|max:1999',
-            'img_skhun'      => 'required|image|max:1999',
-            'img_akta'       => 'required|image|max:1999',
-            'img_kk'         => 'required|image|max:1999',
+            'img_semester_1' => 'required|max:1999',
+            'img_semester_2' => 'required|max:1999',
+            'img_semester_3' => 'required|max:1999',
+            'img_semester_4' => 'required|max:1999',
+            'img_semester_5' => 'required|max:1999',
+            'img_semester_6' => 'required|max:1999',
+            'img_skhun'      => 'required|max:1999',
+            'img_akta'       => 'required|max:1999',
+            'img_kk'         => 'required|max:1999',
         ];
     }
 
@@ -40,7 +40,6 @@ class DocumentRequest extends FormRequest
     {
         return [
             'required'=>'File tidak boleh kosong',
-            'image'=>'Format file hanya boleh jpeg, png, bmp, gif, svg, atau webp',
             'max'=>'Maksimal ukuran file 2MB'
         ];
     }

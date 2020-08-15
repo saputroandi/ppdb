@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\FormsRequest;
 use JWTAuth;
@@ -77,11 +78,18 @@ class FormsController extends Controller
     {
         $form = Form::where('user_id', $idUser)->first();
 
-        if($this->user->id !== $form->user_id){
+        if(isset($form)){
+            if($this->user->id !== $form->user_id){
+                return response()->json([
+                    'status'  => 403,
+                    'message' => 'Forbidden',
+                ],403);
+            }
+        }else{
             return response()->json([
-                'status'  => false,
-                'message' => 'Forbidden',
-            ],403);
+                'status'  => 400,
+                'message' => 'Not found',
+            ],400);
         }
 
         $form->name              = $request->name;

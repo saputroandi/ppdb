@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
@@ -18,6 +19,7 @@ class UsersController extends Controller
     {
         $user = User::find($idUser);
 
+        if(isset($user->id)==true){
             if($this->user->id == $user->id){
                 return response()->json([
                     'status' => 200,
@@ -29,14 +31,18 @@ class UsersController extends Controller
                     'message' => 'Forbidden',
                 ],403);
             }
-        
+        }else{
+            return response()->json([
+                'status'  => 404,
+                'message' => 'Not found',
+            ],404);
+        }
     }
 
     public function updateUser(Request $request,$idUser)
     {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|email|unique:users',
         ]);
 
         $user = User::find($idUser);
@@ -49,7 +55,6 @@ class UsersController extends Controller
         }
 
         $user->name  = $request->name;
-        $user->email = $request->email;
 
 
             if($user->save()){
@@ -82,7 +87,7 @@ class UsersController extends Controller
             ],403);
         }
         
-        $user->password=Hash::make($data['password']);
+        $user->password=Hash::make($request['password']);
 
         if($user->save()){
             return response()->json([
