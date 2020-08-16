@@ -24,12 +24,12 @@ class GradeRequest extends FormRequest
     public function rules()
     {
         return [
-            'semester_1'            => 'required|numeric',
-            'semester_2'            => 'required|numeric',
-            'semester_3'            => 'required|numeric',
-            'semester_4'            => 'required|numeric',
-            'semester_5'            => 'required|numeric',
-            'semester_6'            => 'required|numeric',
+            'semester_1'            => 'required|numeric|lte:100',
+            'semester_2'            => 'required|numeric|lte:100',
+            'semester_3'            => 'required|numeric|lte:100',
+            'semester_4'            => 'required|numeric|lte:100',
+            'semester_5'            => 'required|numeric|lte:100',
+            'semester_6'            => 'required|numeric|lte:100',
         ];
     }
 
@@ -38,6 +38,7 @@ class GradeRequest extends FormRequest
         return [
             'required'=>'Field ini tidak boleh kosong',
             'numeric'=>'Field ini hanya boleh berupa angka',
+            'lte'=>'nilai yang di masukan tidak boleh lebih dari 100',
         ];
     }
 }
