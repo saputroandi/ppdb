@@ -18,8 +18,7 @@ Auth::routes();
 
 Route::get('/','Web\HomeController@index');
 Route::resource('/form', 'Web\ManagementController');
-// Route::get('/dashboard', 'ManagementController@index');
 
-// Route::post('/form','ManagementController@store');
-// Route::get('/form','ManagementController@create');
-// Route::delete('/user/{id}', 'ManagementController@index');
+Route::get('/test',function(){
+    return view('layouts.dashboard');
+});
