@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 <table class="table">
@@ -15,15 +15,15 @@
         <tr>
             <th scope="row">1</th>
             @if(isset($student->form->name)==true)
-                <td>{{$student->form->name}}</td>
+            <td>{{$student->form->name}}</td>
             @else
-                <td>{{$student->name}}</td>
+            <td>{{$student->name}}</td>
             @endif
             <td>{{$student->email}}</td>
             <td class="d-flex">
                 @if(isset($student->form->name)==true)
-                    <a href="/form/{{$student->form->id}}" class="btn btn-primary">Details</a>
-                    <a href="/form/{{$student->id}}/edit" class="btn btn-primary">Edit</a>
+                <a href="/form/{{$student->form->id}}" class="btn btn-primary">Details</a>
+                <a href="/form/{{$student->id}}/edit" class="btn btn-primary">Edit</a>
                 @endif
                 <form action="/form/{{$student->id}}" method="POST">
                     @csrf
@@ -32,7 +32,7 @@
                 </form>
             </td>
         </tr>
-    </tbody>    
+    </tbody>
     @endforeach
-    </table>
+</table>
 @endsection

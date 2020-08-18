@@ -16,9 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/','Web\HomeController@index');
-Route::resource('/form', 'Web\ManagementController');
-
-Route::get('/test',function(){
-    return view('layouts.dashboard');
-});
+Route::resource('/', 'Web\ManagementController');
