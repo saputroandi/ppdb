@@ -17,4 +17,19 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('/','Web\HomeController@index');
-Route::resource('/forms', 'Web\ManagementController');
+Route::resource('/forms', 'Web\FormsController');
+
+//kurang update grade dan store grade
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix'     => 'grade',
+    ],function(){
+    Route:: post('/store','Web\GradeController@storeGrade');
+    Route:: get('/show','Web\GradeController@showAllGrade');
+    Route:: get('/show/{id}','Web\GradeController@showGrade');
+    Route:: get('/show/{id}/edit','Web\GradeController@editGrade');
+    Route:: get('/input','Web\GradeController@inputGrade');
+    Route:: patch('/update/{id}','Web\GradeController@updateGrade');
+    Route:: delete('/delete/{id}','Web\GradeController@deleteGrade');
+});

@@ -8,7 +8,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ManagementRequest;
 
-class ManagementController extends Controller
+class FormsController extends Controller
 {
     /**
      * Create a new controller instance.
