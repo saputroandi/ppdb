@@ -22,10 +22,10 @@
             <td>{{$student->email}}</td>
             <td class="d-flex">
                 @if(isset($student->form->name)==true)
-                <a href="/form/{{$student->form->id}}" class="btn btn-primary">Details</a>
-                <a href="/form/{{$student->id}}/edit" class="btn btn-primary">Edit</a>
+                <a href="/forms/{{$student->form->id}}" class="btn btn-primary">Details</a>
+                <a href="/forms/{{$student->id}}/edit" class="btn btn-primary">Edit</a>
                 @endif
-                <form action="/form/{{$student->id}}" method="POST">
+                <form action="/forms/{{$student->id}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>

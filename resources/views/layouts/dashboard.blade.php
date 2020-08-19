@@ -26,7 +26,7 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
@@ -35,22 +35,27 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0" />
-
-            <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Forms</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Forms:</h6>
+                        @if(Auth::user()->role_id == '1')
+                        <a class="collapse-item" href="/forms">All forms</a>
+                        @else
+                        <a class="collapse-item" href="/forms">My Form</a>
+                        @endif
+                        <a class="collapse-item" href="/forms/create">Create forms</a>
+                    </div>
+                </div>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0" />
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
-            </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider" />
 
@@ -111,6 +116,8 @@
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     </div>
                     <!-- End Page Heading -->
+                    @include('inc.messages')
+                    @yield('content')
                 </div>
                 <!-- End of Main Content -->
 

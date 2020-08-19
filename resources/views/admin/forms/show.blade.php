@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.dashboard')
 
 @section('content')
 <table class="table">
@@ -98,8 +98,8 @@
             <td>{{$form->majors_interest}}</td>
         </tr>
         <tr>
-            <td><a href="/form" class="btn btn-secondary">Back</a></td>
-            <td><a href="/form/{{$form->user->id}}/edit" class="btn btn-primary">Edit</a></td>
+            <td><a href="/forms" class="btn btn-secondary">Back</a></td>
+            <td><a href="/forms/{{$form->user->id}}/edit" class="btn btn-primary">Edit</a></td>
         </tr>
     </tbody>
 </table>

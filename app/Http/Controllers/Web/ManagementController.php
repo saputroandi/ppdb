@@ -42,7 +42,7 @@ class ManagementController extends Controller
                 return redirect('/form/'.$form_id);
             }
 
-        return view('admin.dashboard')->with('students',$students);
+        return view('admin.forms.dashboard')->with('students',$students);
     }
 
     /**
@@ -59,7 +59,7 @@ class ManagementController extends Controller
 
             //cek user apakah sudah membuat form
             if(isset($user->form->user_id) == false){
-                return view('admin.form');
+                return view('admin.forms.form');
             }
         return redirect('/')->with('success','You Already Have Created Form');
     }
@@ -108,7 +108,6 @@ class ManagementController extends Controller
         return redirect('/')->with('success','Form Created');
 
 
-        // dd($form);
     }
 
     /**
@@ -123,15 +122,15 @@ class ManagementController extends Controller
 
             if($userActive->role_id !== 1){
                 if(isset($userActive->form->user_id)==true){
-                    $form=Form::where('user_id',$id)->get();
-                    $form_userId=$form[0]->user_id;
+                    $form=Form::where('user_id',$id)->first();
+                    $form_userId=$form->user_id;
                     if($userActive->id == $form_userId){
-                        return view('admin.show')->with('form',$form[0]);
+                        return view('admin.forms.show')->with('form',$form);
                     }
                 }
             }else{
                 $form=Form::find($id);
-                return view('admin.show')->with('form',$form);
+                return view('admin.forms.show')->with('form',$form);
             }
     }
 
@@ -149,11 +148,11 @@ class ManagementController extends Controller
                 $user        = Form::where('user_id',$id)->get();
                 $form_userId = $user[0]->user_id;
                 if($userActive->id == $form_userId){
-                    return view('admin.edit')->with('user',$user[0]);
+                    return view('admin.forms.edit')->with('user',$user[0]);
                 }
             }else{
                 $user = Form::where('user_id',$id)->get();
-                return view('admin.edit')->with('user',$user[0]);
+                return view('admin.forms.edit')->with('user',$user[0]);
             }
     }
 
