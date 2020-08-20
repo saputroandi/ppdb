@@ -26,7 +26,7 @@ class FormsController extends Controller
      */
     public function index()
     {
-        $students = User::all();
+        $students = User::with('form')->get();
         
         $id   = auth()->user()->id;
         $user = User::find($id);

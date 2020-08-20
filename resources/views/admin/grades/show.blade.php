@@ -16,12 +16,10 @@
             <th scope="col">Action</th>
         </tr>
     </thead>
-    @foreach ($users as $user)
     <tbody>
         <tr>
             <th scope="row">1</th>
             <td>{{$user->name}}</td>
-            @if(isset($user->grade)==true)
             <td>{{$user->grade->semester_1}}</td>
             <td>{{$user->grade->semester_2}}</td>
             <td>{{$user->grade->semester_3}}</td>
@@ -29,30 +27,11 @@
             <td>{{$user->grade->semester_5}}</td>
             <td>{{$user->grade->semester_6}}</td>
             <td>{{$user->grade->average}}</td>
-            @else
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            <td> </td>
-            @endif
             <td class="d-flex">
-                @if(isset($user->grade->semester_1)==true)
-                <a href="/grade/show/{{$user->id}}" class="btn btn-primary">Details</a>
+                <a href="/" class="btn btn-secondary">Back</a>
                 <a href="/grade/show/{{$user->id}}/edit" class="btn btn-primary">Edit</a>
-                @else
-                <a href="/grade/input" class="btn btn-primary">Input Grade</a>
-                @endif
-                <form action="/grade/delete/{{$user->id}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                </form>
             </td>
         </tr>
     </tbody>
-    @endforeach
 </table>
 @endsection

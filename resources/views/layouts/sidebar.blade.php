@@ -42,7 +42,7 @@
                 @else
                 <a class="collapse-item" href="/grade/show">My Grade</a>
                 @endif
-                <a class="collapse-item" href="/grade/create">Input Grade</a>
+                <a class="collapse-item" href="/grade/input">Input Grade</a>
             </div>
         </div>
     </li>
