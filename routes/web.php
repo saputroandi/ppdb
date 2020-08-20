@@ -32,3 +32,14 @@ Route::group([
     Route:: get('/input','Web\GradeController@inputGrade');
     Route:: patch('/update/{id}','Web\GradeController@updateGrade');
 });
+Route::group([
+    'middleware' => 'auth',
+    'prefix'     => 'document',
+    ],function(){
+    Route:: post('/input','Web\DocumentController@storeDocument');
+    Route:: get('/show','Web\DocumentController@showAllDocument');
+    Route:: get('/show/{id}','Web\DocumentController@showDocument');
+    Route:: get('/show/{id}/edit','Web\DocumentController@editDocument');
+    Route:: get('/input','Web\DocumentController@inputDocument');
+    Route:: patch('/update/{id}','Web\DocumentController@updateDocument');
+});

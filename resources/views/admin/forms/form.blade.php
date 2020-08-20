@@ -29,6 +29,13 @@
         </div>
     </div>
     <div class="form-group row">
+        <label for="inputBorn" class="col-sm-2 col-form-label">Born</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputBorn" name="date_of_birth">
+            <small style="color: red;">@error('born'){{$message}}@enderror</small>
+        </div>
+    </div>
+    <div class="form-group row">
         <label for="inputReligion" class="col-sm-2 col-form-label">Religion</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="inputReligion" name="religion">

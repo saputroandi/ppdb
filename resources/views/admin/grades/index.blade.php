@@ -42,8 +42,6 @@
                 @if(isset($user->grade->semester_1)==true)
                 <a href="/grade/show/{{$user->id}}" class="btn btn-primary">Details</a>
                 <a href="/grade/show/{{$user->id}}/edit" class="btn btn-primary">Edit</a>
-                @else
-                <a href="/grade/input" class="btn btn-primary">Input Grade</a>
                 @endif
                 <form action="/grade/delete/{{$user->id}}" method="POST">
                     @csrf

@@ -22,6 +22,10 @@
             <td>{{$form->date_of_birth}}</td>
         </tr>
         <tr>
+            <td>Born</td>
+            <td>{{$form->born}}</td>
+        </tr>
+        <tr>
             <td>Religion</td>
             <td>{{$form->religion}}</td>
         </tr>

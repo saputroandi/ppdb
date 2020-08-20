@@ -21,14 +21,13 @@ class GradeController extends Controller
         
         if(auth()->user()->role_id == '2'){
             if(isset(auth()->user()->grade->user_id) == false){
-                return redirect('/grade/input')->with('success','You have to create form first');
+                return redirect('/grade/input')->with('success','You have to input grade first');
             }
             return redirect('/grade/show/'.auth()->user()->id);
-        }
-
-        $users = User::all();
+        }else{
+            $users = User::all();
         return view('admin.grades.index',['users'=>$users]);
-
+        }
     }
 
     public function showGrade($id)
@@ -51,8 +50,12 @@ class GradeController extends Controller
     public function inputGrade()
     {
         $checkUser = Grade::where('user_id', auth()->user()->id)->first();
-        if(isset($checkUser->user_id)==true){
-            return redirect('/grade/show/'.auth()->user()->id)->with('success','You have input your grade before');
+        if(auth()->user()->role_id == '2'){
+            if(isset($checkUser->user_id)==true){
+                return redirect('/grade/show/'.auth()->user()->id)->with('success','You have input your grade before');
+            }else{
+                return view('admin.grades.input');
+            }
         }else{
             return view('admin.grades.input');
         }

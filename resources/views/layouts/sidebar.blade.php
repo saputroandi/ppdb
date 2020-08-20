@@ -46,6 +46,24 @@
             </div>
         </div>
     </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDocument"
+            aria-expanded="true" aria-controls="collapseDocument">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Document</span>
+        </a>
+        <div id="collapseDocument" class="collapse" aria-labelledby="headingDocument" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Document:</h6>
+                @if(Auth::user()->role_id == '1')
+                <a class="collapse-item" href="/document/show">All Document</a>
+                @else
+                <a class="collapse-item" href="/document/show">My Document</a>
+                @endif
+                <a class="collapse-item" href="/document/input">Upload Document</a>
+            </div>
+        </div>
+    </li>
     <!-- Divider -->
     <hr class="sidebar-divider" />
 

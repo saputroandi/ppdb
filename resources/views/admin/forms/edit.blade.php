@@ -26,9 +26,16 @@
     <div class="form-group row">
         <label for="inputDate" class="col-sm-2 col-form-label">Date Of Birth</label>
         <div class="col-sm-10">
-            <input type="date" class="form-control" id="inputDate" name="date_of_birth"
-                value="{{$user->date_of_birth}}">
+            <input type="date" class="form-control" id="inputDate" name="date_of_birth" value="{{$user->born}}">
             <small style="color: red;">@error('date_of_birth'){{$message}}@enderror</small>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputBorn" class="col-sm-2 col-form-label">Born</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputBorn" name="date_of_birth"
+                value="{{$user->date_of_birth}}">
+            <small style="color: red;">@error('born'){{$message}}@enderror</small>
         </div>
     </div>
     <div class="form-group row">
