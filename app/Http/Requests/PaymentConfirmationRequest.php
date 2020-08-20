@@ -24,17 +24,18 @@ class PaymentConfirmationRequest extends FormRequest
     public function rules()
     {
         return [
-            'pay_date'     => 'required',
-            'bank_name'    => 'required',
-            'bank_account' => 'required',
-            'status'       => 'required',
+            'pay_date'         => 'required',
+            'bank_name'        => 'required',
+            'bank_account'     => 'required',
+            'proof_of_payment' => 'required',
+            'status'           => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'required'=>'Field ini tidak boleh kosong',
+            'required' => 'Field ini tidak boleh kosong',
         ];
     }
 }

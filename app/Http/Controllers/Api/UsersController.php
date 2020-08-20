@@ -54,7 +54,8 @@ class UsersController extends Controller
             ],403);
         }
 
-        $user->name  = $request->name;
+        $user->name    = $request->name;
+        $user->picture = $request->picture;
 
 
             if($user->save()){

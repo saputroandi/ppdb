@@ -92,31 +92,32 @@ class FormsController extends Controller
             ],400);
         }
 
-        $form->name              = $request->name;
-        $form->user_id           = $this->user->id;
-        $form->photo             = $request->photo;
-        $form->gender            = $request->gender;
-        $form->date_of_birth     = $request->date_of_birth;
-        $form->religion          = $request->religion;
-        $form->name_of_father    = $request->name_of_father;
-        $form->name_of_mother    = $request->name_of_mother;
-        $form->phone_number_1    = $request->phone_number_1;
-        $form->phone_number_2    = $request->phone_number_2;
-        $form->province          = $request->province;
-        $form->district          = $request->district;
-        $form->sub_district      = $request->sub_district;
-        $form->urban_village     = $request->urban_village;
-        $form->address           = $request->address;
-        $form->zip_code          = $request->zip_code;
-        $form->from_jhs          = $request->from_jhs;
-        $form->nisn              = $request->nisn;
-        $form->no_kk             = $request->no_kk;
-        $form->nik_of_student    = $request->nik_of_student;
-        $form->nik_of_father     = $request->nik_of_father;
-        $form->nik_of_mother     = $request->nik_of_mother;
-        $form->father_occupation = $request->father_occupation;
-        $form->mother_occupation = $request->mother_occupation;
-        $form->majors_interest_id   = $request->majors_interest_id;
+        $form->name               = $request->name;
+        $form->user_id            = $this->user->id;
+        $form->photo              = $request->photo;
+        $form->gender             = $request->gender;
+        $form->date_of_birth      = $request->date_of_birth;
+        $form->born               = $request->born;
+        $form->religion           = $request->religion;
+        $form->name_of_father     = $request->name_of_father;
+        $form->name_of_mother     = $request->name_of_mother;
+        $form->phone_number_1     = $request->phone_number_1;
+        $form->phone_number_2     = $request->phone_number_2;
+        $form->province           = $request->province;
+        $form->district           = $request->district;
+        $form->sub_district       = $request->sub_district;
+        $form->urban_village      = $request->urban_village;
+        $form->address            = $request->address;
+        $form->zip_code           = $request->zip_code;
+        $form->from_jhs           = $request->from_jhs;
+        $form->nisn               = $request->nisn;
+        $form->no_kk              = $request->no_kk;
+        $form->nik_of_student     = $request->nik_of_student;
+        $form->nik_of_father      = $request->nik_of_father;
+        $form->nik_of_mother      = $request->nik_of_mother;
+        $form->father_occupation  = $request->father_occupation;
+        $form->mother_occupation  = $request->mother_occupation;
+        $form->majors_interest_id = $request->majors_interest_id;
 
 
         if(isset($form)){

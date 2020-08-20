@@ -89,12 +89,13 @@ class PaymentConfirmationController extends Controller
             ],400);
         }
 
-        $payment->user_id      = $this->user->id;
-        $payment->pay_date     = $request->pay_date;
-        $payment->bank_name    = $request->bank_name;
-        $payment->bank_account = $request->bank_account;
-        $payment->status       = $request->status;
-        $payment->note         = $request->note;
+        $payment->user_id          = $this->user->id;
+        $payment->pay_date         = $request->pay_date;
+        $payment->bank_name        = $request->bank_name;
+        $payment->bank_account     = $request->bank_account;
+        $payment->proof_of_payment = $request->proof_of_payment;
+        $payment->status           = $request->status;
+        $payment->note             = $request->note;
 
         if(isset($payment)){
             if($payment->save()){

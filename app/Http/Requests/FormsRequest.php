@@ -26,6 +26,7 @@ class FormsRequest extends FormRequest
         return [
             'gender'             => 'required',
             'date_of_birth'      => 'required',
+            'born'               => 'required',
             'religion'           => 'required',
             'name_of_father'     => 'required',
             'name_of_mother'     => 'required',
