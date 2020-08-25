@@ -1,46 +1,64 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="form-group row">
-    <label for="inputSemester_1" class="col-sm-2 col-form-label">Image Semester 1</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputSemester_1" name="semester_1"
-            value="{{$user->document->img_semester_1}}" readonly>
+<div class="row">
+    <div class="card m-1" style="width: 18rem;">
+        <img src="data:image/jpeg;base64,{{$user->document->img_semester_1}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Image Semester 1</h5>
+        </div>
+    </div>
+    <div class="card m-1" style="width: 18rem;">
+        <img src="data:image/jpg;base64,{{$user->document->img_semester_2}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Image Semester 2</h5>
+        </div>
+    </div>
+    <div class="card m-1" style="width: 18rem;">
+        <img src="data:image/jpg;base64,{{$user->document->img_semester_3}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Image Semester 3</h5>
+        </div>
+    </div>
+    <div class="card m-1" style="width: 18rem;">
+        <img src="data:image/jpg;base64,{{$user->document->img_semester_4}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Image Semester 4</h5>
+        </div>
+    </div>
+    <div class="card m-1" style="width: 18rem;">
+        <img src="data:image/jpg;base64,{{$user->document->img_semester_5}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Image Semester 5</h5>
+        </div>
+    </div>
+    <div class="card m-1" style="width: 18rem;">
+        <img src="data:image/jpg;base64,{{$user->document->img_semester_6}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Image Semester 6</h5>
+        </div>
+    </div>
+    <div class="card m-1" style="width: 18rem;">
+        <img src="data:image/jpg;base64,{{$user->document->img_skhun}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Image SKHUN</h5>
+        </div>
+    </div>
+    <div class="card m-1" style="width: 18rem;">
+        <img src="data:image/jpg;base64,{{$user->document->img_akta}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Image Akta</h5>
+        </div>
+    </div>
+    <div class="card m-1" style="width: 18rem;">
+        <img src="data:image/jpg;base64,{{$user->document->img_kk}}" class="card-img-top">
+        <div class="card-body">
+            <h5 class="card-title">Image KK</h5>
+        </div>
     </div>
 </div>
-<div class="form-group row">
-    <label for="inputSemester_2" class="col-sm-2 col-form-label">Image Semester 2</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputSemester_2" name="semester_2"
-            value="{{$user->document->img_semester_2}}" readonly>
-    </div>
-</div>
-<div class="form-group row">
-    <label for="inputSemester_3" class="col-sm-2 col-form-label">Image Semester 3</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputSemester_3" name="semester_3"
-            value="{{$user->document->img_semester_3}}" readonly>
-    </div>
-</div>
-<div class="form-group row">
-    <label for="inputSemester_4" class="col-sm-2 col-form-label">Image Semester 4</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputSemester_4" name="semester_4"
-            value="{{$user->document->img_semester_4}}" readonly>
-    </div>
-</div>
-<div class="form-group row">
-    <label for="inputSemester_5" class="col-sm-2 col-form-label">Image Semester 5</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputSemester_5" name="semester_5"
-            value="{{$user->document->img_semester_5}}" readonly>
-    </div>
-</div>
-<div class="form-group row">
-    <label for="inputSemester_6" class="col-sm-2 col-form-label">Image Semester 6</label>
-    <div class="col-sm-10">
-        <input type="text" class="form-control" id="inputSemester_6" name="semester_6"
-            value="{{$user->document->img_semester_6}}" readonly>
-    </div>
-</div>
+@if(Auth::user()->role_id == '1')
+<td><a href="/document/show" class="btn btn-secondary">Back</a></td>
+@endif
+<td><a href="/document/show/{{$user->document->user_id}}/edit" class="btn btn-primary">Edit</a></td>
 @endsection

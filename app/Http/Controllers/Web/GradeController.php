@@ -34,7 +34,7 @@ class GradeController extends Controller
     {
         if(auth()->user()->role_id == '2'){
             if(isset(auth()->user()->grade->user_id) == false){
-                return redirect('/grade/input')->with('success','You have to create form first');
+                return redirect('/grade/input')->with('success','You have to input grade first');
             } elseif (auth()->user()->id==$id) {
                 $user = User::find($id);
                 return view('admin.grades.show',['user'=>$user]);
