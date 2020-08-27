@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\SessionRegis;
 use App\User;
 use App\Form;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -65,9 +66,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $date=SessionRegis::all();
+        if(strtotime(now())<=strtotime($date[0]->end_date)){
+            $data['session_regis'] = $date[0]->name;
+        }else if(strtotime(now())<=strtotime($date[1]->end_date)){
+            $data['session_regis'] = $date[1]->name;
+        }else if(strtotime(now())<=strtotime($date[2]->end_date)){
+            $data['session_regis'] = $date[2]->name;
+        }else{
+            $data['session_regis'] = 'gk jelas elu pendaftaran udah di tutup';
+        }
+
         return User::create([
             'name' => $data['name'],
             'role_id' => '2',
+            'session_regis'=>$data['session_regis'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

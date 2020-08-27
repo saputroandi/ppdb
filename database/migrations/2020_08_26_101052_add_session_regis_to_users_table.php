@@ -26,7 +26,7 @@ class AddSessionRegisToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('session_regis')->nullable()->after('picture');
+            $table->dropColumn('session_regis')->nullable()->after('picture');
         });
     }
 }

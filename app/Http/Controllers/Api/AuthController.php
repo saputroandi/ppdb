@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use JWTAuth;
 use Illuminate\Http\Request;
+use App\SessionRegis;
 use App\User;
 use App\Http\Resources\User as UserResource;
 use App\Http\Requests\AuthRequest;
@@ -46,11 +47,23 @@ class AuthController extends Controller
     public function register(AuthRequest $request)
     {
 
-        $user           = new User;
-        $user->name     = $request->name;
-        $user->role_id  = '2';
-        $user->email    = $request->email;
-        $user->password = bcrypt($request->password);
+        $date=SessionRegis::all();
+        if(strtotime(now())<=strtotime($date[0]->end_date)){
+            $data = $date[0]->name;
+        }else if(strtotime(now())<=strtotime($date[1]->end_date)){
+            $data = $date[1]->name;
+        }else if(strtotime(now())<=strtotime($date[2]->end_date)){
+            $data = $date[2]->name;
+        }else{
+            $date = 'gk jelas elu pendaftaran udah di tutup';
+        }
+
+        $user                = new User;
+        $user->name          = $request->name;
+        $user->role_id       = '2';
+        $user->session_regis = $data;
+        $user->email         = $request->email;
+        $user->password      = bcrypt($request->password);
         $user->save();
 
         $credentials = $request->only(['email','password']);
