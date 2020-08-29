@@ -165,6 +165,7 @@ class ComposerStaticInitfe028c119c307e70475dfc3cd4737b4e
         'C' => 
         array (
             'Cron\\' => 5,
+            'Crazybooot\\Base64Validation\\' => 28,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -477,6 +478,10 @@ class ComposerStaticInitfe028c119c307e70475dfc3cd4737b4e
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
+        'Crazybooot\\Base64Validation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/crazybooot/base64-validation/src',
+        ),
         'Carbon\\' => 
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
@@ -492,6 +497,7 @@ class ComposerStaticInitfe028c119c307e70475dfc3cd4737b4e
         'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app',
+            1 => __DIR__ . '/..' . '/crazybooot/base64-validation/app',
         ),
     );
 
@@ -668,6 +674,8 @@ class ComposerStaticInitfe028c119c307e70475dfc3cd4737b4e
         'Carbon\\Traits\\Units' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Units.php',
         'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
+        'Crazybooot\\Base64Validation\\Providers\\ServiceProvider' => __DIR__ . '/..' . '/crazybooot/base64-validation/src/Providers/ServiceProvider.php',
+        'Crazybooot\\Base64Validation\\Validators\\Base64Validator' => __DIR__ . '/..' . '/crazybooot/base64-validation/src/Validators/Base64Validator.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',

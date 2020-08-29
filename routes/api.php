@@ -58,17 +58,16 @@ Route::group([
 });
 
 Route::group([
-    'middleware' => 'auth.jwt',
     'prefix'     => 'news',
     ],function(){
     Route:: post('/store','Api\NewsController@storeNews');
     Route:: get('/show','Api\NewsController@showAllNews');
+    Route:: get('/show/{id}','Api\NewsController@detailNews');
     Route:: patch('/update/{id}','Api\NewsController@updateNews');
     Route:: delete('/delete/{id}','Api\NewsController@deleteNews');
 });
 
 Route::group([
-    'middleware' => 'auth.jwt',
     'prefix'     => 'schedule',
     ],function(){
     Route:: post('/store','Api\ScheduleController@storeSchedule');
@@ -104,9 +103,9 @@ Route::group([
     Route:: patch('/update/{id}','Api\MajorInterestController@updateInterest');
     Route:: delete('/delete/{id}','Api\MajorInterestController@deleteInterest');
 });
-Route::group([
-    'middleware' => 'auth.jwt',
-    'prefix'     => 'session',
-    ],function(){
-    Route:: get('/test/{id}','Api\SessionRegisController@sessionRegis');
-});
+// Route::group([
+//     'middleware' => 'auth.jwt',
+//     'prefix'     => 'session',
+//     ],function(){
+//     Route:: get('/test/{id}','Api\SessionRegisController@sessionRegis');
+// });

@@ -106,8 +106,32 @@ class DocumentController extends Controller
         }
     }
 
-    public function updateDocument(DocumentRequest $request,$id)
+    public function updateDocument(Request $request,$id)
     {
-        dd($request,$id);
+        $document=Document::where('user_id',$id)->first();
+        isset($request->img_semester_1)==true?$this->validate($request,['img_semester_1' => 'required|image|max:1999',]):null;
+        isset($request->img_semester_2)==true?$this->validate($request,['img_semester_2' => 'required|image|max:1999',]):null;
+        isset($request->img_semester_3)==true?$this->validate($request,['img_semester_3' => 'required|image|max:1999',]):null;
+        isset($request->img_semester_4)==true?$this->validate($request,['img_semester_4' => 'required|image|max:1999',]):null;
+        isset($request->img_semester_5)==true?$this->validate($request,['img_semester_5' => 'required|image|max:1999',]):null;
+        isset($request->img_semester_6)==true?$this->validate($request,['img_semester_6' => 'required|image|max:1999',]):null;
+        isset($request->img_skhun)     ==true?$this->validate($request,['img_skhun'      => 'required|image|max:1999',]):null;
+        isset($request->img_akta)      ==true?$this->validate($request,['img_akta'       => 'required|image|max:1999',]):null;
+        isset($request->img_kk)        ==true?$this->validate($request,['img_kk'         => 'required|image|max:1999',]):null;
+
+
+        $document->img_semester_1=isset($request->img_semester_1)==true?base64_encode(file_get_contents($request->file('img_semester_1'))):$document->img_semester_1;
+        $document->img_semester_2=isset($request->img_semester_2)==true?base64_encode(file_get_contents($request->file('img_semester_2'))):$document->img_semester_2;
+        $document->img_semester_3=isset($request->img_semester_3)==true?base64_encode(file_get_contents($request->file('img_semester_3'))):$document->img_semester_3;
+        $document->img_semester_4=isset($request->img_semester_4)==true?base64_encode(file_get_contents($request->file('img_semester_4'))):$document->img_semester_4;
+        $document->img_semester_5=isset($request->img_semester_5)==true?base64_encode(file_get_contents($request->file('img_semester_5'))):$document->img_semester_5;
+        $document->img_semester_6=isset($request->img_semester_6)==true?base64_encode(file_get_contents($request->file('img_semester_6'))):$document->img_semester_6;
+        $document->img_skhun     =isset($request->img_skhun)     ==true?base64_encode(file_get_contents($request->file('img_skhun')))     :$document->img_skhun;
+        $document->img_akta      =isset($request->img_akta)      ==true?base64_encode(file_get_contents($request->file('img_akta')))      :$document->img_akta;
+        $document->img_kk        =isset($request->img_kk)        ==true?base64_encode(file_get_contents($request->file('img_kk')))        :$document->img_kk;
+        $document->save();
+        
+        return redirect('/document/show/'.$id)->with('success','Congratulation you have updated your document');
+
     }
 }

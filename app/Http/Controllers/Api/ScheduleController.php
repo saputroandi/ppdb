@@ -11,27 +11,13 @@ use App\Schedule;
 
 class ScheduleController extends Controller
 {
-    public function __construct()
-    {
-        $this->user = JWTAuth::parseToken()->authenticate();
-    }
-
     public function showAllSchedule()
     {
         $schedule = Schedule::orderBy('id','DESC')->get();
-        $user     = $this->user;
-
-        if($this->user->role_id !== 1){
-            return response()->json([
-                'status'  => 403,
-                'message' => 'Forbidden',
-            ],403);
-        }
 
         if(isset($schedule)==true){
                 return response()->json([
                     'status'   => 200,
-                    'user'     => $user,
                     'document' => $schedule,
                 ]);
         }else{
@@ -45,11 +31,12 @@ class ScheduleController extends Controller
 
     public function storeSchedule(ScheduleRequest $request)
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
                   $schedule  = new Schedule;
                   $schedule  = $request->all();
         $schedule['user_id'] = $this->user->id;
 
-        if($this->user->role_id !== 1){
+        if($this->user->role_id != 1){
             return response()->json([
                 'status'  => 403,
                 'message' => 'Forbidden',
@@ -72,9 +59,10 @@ class ScheduleController extends Controller
 
     public function updateSchedule(ScheduleRequest $request,$idSchedule)
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
         $schedule                   = Schedule::where('id', $idSchedule)->first();
 
-        if($this->user->role_id !== 1){
+        if($this->user->role_id != 1){
             return response()->json([
                 'status'  => 403,
                 'message' => 'Forbidden',
@@ -94,13 +82,6 @@ class ScheduleController extends Controller
         $schedule->schedule_time    = $request->schedule_time;
         $schedule->schedule_content = $request->schedule_content;
 
-        if($this->user->role_id !== 1){
-            return response()->json([
-                'status'  => 403,
-                'message' => 'Forbidden',
-            ],403);
-        }
-
 
             if($schedule->save()){
                 return response()->json([
@@ -119,9 +100,10 @@ class ScheduleController extends Controller
 
     public function deleteSchedule($idSchedule)
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
         $schedule = Schedule::find($idSchedule);
 
-        if($this->user->role_id !== 1){
+        if($this->user->role_id != 1){
             return response()->json([
                 'status'  => 403,
                 'message' => 'Forbidden',

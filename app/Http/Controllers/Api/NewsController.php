@@ -10,27 +10,14 @@ use App\News;
 
 class NewsController extends Controller
 {
-    public function __construct()
-    {
-        $this->user = JWTAuth::parseToken()->authenticate();
-    }
 
     public function showAllNews()
     {
         $news = News::orderBy('id','DESC')->get();
-        $user = $this->user;
-
-        if($this->user->role_id !== 1){
-            return response()->json([
-                'status'  => 403,
-                'message' => 'Forbidden',
-            ],403);
-        }
 
         if(isset($news)==true){
                 return response()->json([
                     'status' => 200,
-                    'user'   => $user,
                     'document'   => $news,
                 ]);
         }else{
@@ -42,13 +29,31 @@ class NewsController extends Controller
         
     }
 
+    public function detailNews($id)
+    {
+        $news=News::where('id',$id)->first();
+        if(isset($news)==true){
+            return response()->json([
+                'status' => 200,
+                'post_title'   => $news->post_title,
+                'post_content'   => $news->post_content,
+            ]);
+        }else{
+            return response()->json([
+                'status'  => 404,
+                'message' => 'News Not Found',
+            ],404);
+        }
+    }
+
     public function storeNews(NewsRequest $request)
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
         $news = new News;
         $news = $request->all();
         $news['user_id'] = $this->user->id;
 
-        if($this->user->role_id !== 1){
+        if($this->user->role_id != 1){
             return response()->json([
                 'status'  => 403,
                 'message' => 'Forbidden',
@@ -59,7 +64,7 @@ class NewsController extends Controller
             return response()->json([
                 'status' => 200,
                 'user'   => $this->user,
-                'post'   => $news,
+                'news'   => $news,
             ]);
             } else {
             return response()->json([
@@ -71,6 +76,7 @@ class NewsController extends Controller
 
     public function updateNews(NewsRequest $request,$idNews)
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
         $news               = News::where('id', $idNews)->first();
 
         if(isset($news)==false){
@@ -84,7 +90,7 @@ class NewsController extends Controller
         $news->post_title   = $request->post_title;
         $news->post_content = $request->post_content;
 
-        if($this->user->role_id !== 1){
+        if($this->user->role_id != 1){
             return response()->json([
                 'status'  => 403,
                 'message' => 'Forbidden',
@@ -109,9 +115,10 @@ class NewsController extends Controller
 
     public function deleteNews($idNews)
     {
+        $this->user = JWTAuth::parseToken()->authenticate();
         $news = News::find($idNews);
 
-        if($this->user->role_id !== 1){
+        if($this->user->role_id != 1){
             return response()->json([
                 'status'  => 403,
                 'message' => 'Forbidden',
