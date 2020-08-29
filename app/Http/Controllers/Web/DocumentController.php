@@ -19,7 +19,7 @@ class DocumentController extends Controller
     public function showAllDocument()
     {
         
-        if(auth()->user()->role_id == '2'){
+        if(auth()->user()->role_id == 2){
             if(isset(auth()->user()->document->user_id) == false){
                 return redirect('/document/input')->with('success','You have to upload document first');
             }
@@ -34,7 +34,7 @@ class DocumentController extends Controller
     {
         $user = User::find($id);
         if(isset($user->document->user_id)==true){
-            if(auth()->user()->role_id == '2'){
+            if(auth()->user()->role_id = 2){
                 if (auth()->user()->id==$id) {
                     return view('admin.documents.show',['user'=>$user]);
                 }else{
@@ -51,12 +51,8 @@ class DocumentController extends Controller
     public function inputDocument()
     {
         $checkUser = Document::where('user_id', auth()->user()->id)->first();
-        if(auth()->user()->role_id == 2){
-            if(isset($checkUser->user_id)==true){
-                return redirect('/document/show/'.auth()->user()->id)->with('success','You have input your document before');
-            }else{
-                return view('admin.documents.input');
-            }
+        if(isset($checkUser->user_id)==true){
+            return redirect('/document/show/'.auth()->user()->id)->with('success','You have input your document before');
         }else{
             return view('admin.documents.input');
         }
@@ -91,7 +87,7 @@ class DocumentController extends Controller
     {
         $user=User::find($id);
 
-        if(auth()->user()->role_id == '2'){
+        if(auth()->user()->role_id == 2){
             if(auth()->user()->id==$id){
                 if(isset($user->document->user_id)==false){
                     return redirect('/document/input')->with('success','You have upload your document before');

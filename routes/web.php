@@ -43,3 +43,15 @@ Route::group([
     Route:: get('/input','Web\DocumentController@inputDocument');
     Route:: patch('/update/{id}','Web\DocumentController@updateDocument');
 });
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix'     => 'interest',
+    ],function(){
+    Route:: post('/input','Web\MajorInterestController@storeInterest');
+    Route:: get('/show','Web\MajorInterestController@showAllInterest');
+    Route:: get('/show/{id}/edit','Web\MajorInterestController@editInterest');
+    Route:: get('/input','Web\MajorInterestController@inputInterest');
+    Route:: patch('/update/{id}','Web\MajorInterestController@updateInterest');
+    Route:: delete('/delete/{id}','Web\MajorInterestController@deleteInterest');
+});

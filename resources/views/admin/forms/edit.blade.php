@@ -10,7 +10,6 @@
             <input type="text" class="form-control" id="inputName" value="{{$user->name}}" name="name">
             <small style="color: red;">@error('name'){{$message}}@enderror</small>
         </div>
-
     </div>
     <div class="form-group row">
         <div class="col-sm-2">Gender</div>

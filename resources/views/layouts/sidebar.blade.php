@@ -19,7 +19,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Forms:</h6>
-                @if(Auth::user()->role_id == '1')
+                @if(Auth::user()->role_id = 1)
                 <a class="collapse-item" href="/forms">All forms</a>
                 @else
                 <a class="collapse-item" href="/forms">My Form</a>
@@ -64,6 +64,22 @@
             </div>
         </div>
     </li>
+    @if(Auth::user()->role_id == '1')
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInterest"
+            aria-expanded="true" aria-controls="collapseInterest">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Major interest</span>
+        </a>
+        <div id="collapseInterest" class="collapse" aria-labelledby="headingInterest" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Major Interest:</h6>
+                <a class="collapse-item" href="/interest/show">All Major interest</a>
+                <a class="collapse-item" href="/interest/input">Add Major Interest</a>
+            </div>
+        </div>
+    </li>
+    @endif
     <!-- Divider -->
     <hr class="sidebar-divider" />
 
