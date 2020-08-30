@@ -26,7 +26,7 @@ class AddProofOfPaymentToPaymentConfirmationsTable extends Migration
     public function down()
     {
         Schema::table('payment_confirmations', function (Blueprint $table) {
-            $table->longText('proof_of_payment')->after('bank_account');
+            $table->dropColumn('proof_of_payment')->after('bank_account');
         });
     }
 }

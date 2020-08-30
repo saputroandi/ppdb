@@ -26,7 +26,7 @@ class AddBornToFormsTable extends Migration
     public function down()
     {
         Schema::table('forms', function (Blueprint $table) {
-            $table->string('born')->after('date_of_birth');
+            $table->dropColumn('born')->after('date_of_birth');
         });
     }
 }

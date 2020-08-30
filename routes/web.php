@@ -55,3 +55,14 @@ Route::group([
     Route:: patch('/update/{id}','Web\MajorInterestController@updateInterest');
     Route:: delete('/delete/{id}','Web\MajorInterestController@deleteInterest');
 });
+Route::group([
+    'middleware' => 'auth',
+    'prefix'     => 'news',
+    ],function(){
+    Route:: post('/input','Web\NewsController@storeInterest');
+    Route:: get('/show','Web\NewsController@showAllNews');
+    Route:: get('/show/{id}/edit','Web\NewsController@editInterest');
+    Route:: get('/input','Web\NewsController@inputInterest');
+    Route:: patch('/update/{id}','Web\NewsController@updateInterest');
+    Route:: delete('/delete/{id}','Web\NewsController@deleteInterest');
+});

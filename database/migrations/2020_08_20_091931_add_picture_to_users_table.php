@@ -26,7 +26,7 @@ class AddPictureToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->longText('picture')->nullable()->after('role_id');
+            $table->dropColumn('picture')->nullable()->after('role_id');
         });
     }
 }

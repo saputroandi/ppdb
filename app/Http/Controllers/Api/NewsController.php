@@ -35,8 +35,7 @@ class NewsController extends Controller
         if(isset($news)==true){
             return response()->json([
                 'status' => 200,
-                'post_title'   => $news->post_title,
-                'post_content'   => $news->post_content,
+                'news'   => $news,
             ]);
         }else{
             return response()->json([
