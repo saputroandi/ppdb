@@ -18,7 +18,7 @@ class NewsController extends Controller
         if(isset($news)==true){
                 return response()->json([
                     'status' => 200,
-                    'document'   => $news,
+                    'news'   => $news,
                 ]);
         }else{
             return response()->json([

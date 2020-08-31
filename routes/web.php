@@ -55,14 +55,52 @@ Route::group([
     Route:: patch('/update/{id}','Web\MajorInterestController@updateInterest');
     Route:: delete('/delete/{id}','Web\MajorInterestController@deleteInterest');
 });
+
 Route::group([
     'middleware' => 'auth',
     'prefix'     => 'news',
     ],function(){
-    Route:: post('/input','Web\NewsController@storeInterest');
+    Route:: post('/input','Web\NewsController@storeNews');
     Route:: get('/show','Web\NewsController@showAllNews');
-    Route:: get('/show/{id}/edit','Web\NewsController@editInterest');
-    Route:: get('/input','Web\NewsController@inputInterest');
-    Route:: patch('/update/{id}','Web\NewsController@updateInterest');
-    Route:: delete('/delete/{id}','Web\NewsController@deleteInterest');
+    Route:: get('/show/{id}/edit','Web\NewsController@editNews');
+    Route:: get('/input','Web\NewsController@inputNews');
+    Route:: patch('/update/{id}','Web\NewsController@updateNews');
+    Route:: delete('/delete/{id}','Web\NewsController@deleteNews');
+});
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix'     => 'payment',
+    ],function(){
+    Route:: post('/input','Web\PaymentConfirmationController@storePaymentConfirmation');
+    Route:: get('/show','Web\PaymentConfirmationController@showAllPaymentConfirmation');
+    Route:: get('/show/{id}','Web\PaymentConfirmationController@showPaymentConfirmation');
+    Route:: get('/show/{id}/edit','Web\PaymentConfirmationController@editPaymentConfirmation');
+    Route:: get('/input','Web\PaymentConfirmationController@inputPaymentConfirmation');
+    Route:: patch('/update/{id}','Web\PaymentConfirmationController@updatePaymentConfirmation');
+    Route:: delete('/delete/{id}','Web\PaymentConfirmationController@deletePaymentConfirmation');
+    // Route:: get('/test','Web\PaymentConfirmationController@verificationPaymentConfirmation');
+});
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix'     => 'payment-details',
+    ],function(){
+    Route:: post('/input','Web\PaymentDetailsController@storePaymentDetails');
+    Route:: get('/show','Web\PaymentDetailsController@showAllPaymentDetails');
+    Route:: get('/show/{id}/edit','Web\PaymentDetailsController@editPaymentDetails');
+    Route:: get('/input','Web\PaymentDetailsController@inputPaymentDetails');
+    Route:: patch('/update/{id}','Web\PaymentDetailsController@updatePaymentDetails');
+    Route:: delete('/delete/{id}','Web\PaymentDetailsController@deletePaymentDetails');
+});
+Route::group([
+    'middleware' => 'auth',
+    'prefix'     => 'schedule',
+    ],function(){
+    Route:: post('/input','Web\ScheduleController@storeSchedule');
+    Route:: get('/show','Web\ScheduleController@showAllSchedule');
+    Route:: get('/show/{id}/edit','Web\ScheduleController@editSchedule');
+    Route:: get('/input','Web\ScheduleController@inputSchedule');
+    Route:: patch('/update/{id}','Web\ScheduleController@updateSchedule');
+    Route:: delete('/delete/{id}','Web\ScheduleController@deleteSchedule');
 });

@@ -43,6 +43,8 @@ class UsersController extends Controller
     {
         $request->validate([
             'name' => 'required|string',
+            'picture'=>'required',
+            'password' => 'required|string|min:8',
         ]);
 
         $user = User::find($idUser);
@@ -56,6 +58,7 @@ class UsersController extends Controller
 
         $user->name    = $request->name;
         $user->picture = $request->picture;
+        $user->password=Hash::make($request->password);
 
 
             if($user->save()){
@@ -72,36 +75,4 @@ class UsersController extends Controller
             }
         
     }
-
-    public function updatePass(Request $request,$idUser)
-    {
-        $request->validate([
-            'password' => 'required|string|min:8',
-        ]);
-
-        $user = User::find($idUser);
-
-        if($this->user->id !== $user->id){
-            return response()->json([
-                'status'  => 403,
-                'message' => 'Forbidden',
-            ],403);
-        }
-        
-        $user->password=Hash::make($request['password']);
-
-        if($user->save()){
-            return response()->json([
-                'status'  => true,
-                'user'    => $user,
-                'message' => 'User updated'
-            ]);
-            } else {
-            return response()->json([
-                'status'  => false,
-                'message' => 'User could not be saved'
-            ]);
-        }
-    }
-
 }

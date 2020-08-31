@@ -26,7 +26,6 @@ Route::group([
     'middleware' => 'auth.jwt',
     'prefix'     => 'user',
     ],function(){
-    Route:: patch('/update-pass/{id}','Api\UsersController@updatePass');
     Route:: patch('/update/{id}','Api\UsersController@updateUser');
     Route:: get('/show/{id}','Api\UsersController@showUser');
 });

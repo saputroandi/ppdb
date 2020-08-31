@@ -14,14 +14,15 @@
     <tbody>
         <tr>
             <td scope="row">1</td>
-            <td>{{$content->name}}</td>
+            <td>{{$content->post_title}}</td>
+            <td>{{$content->post_content}}</td>
             <td class="d-flex">
                 <a href="/news/show/{{$content->id}}/edit" class="btn btn-primary">Edit</a>
                 <form action="/news/delete/{{$content->id}}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger"
-                        onclick="return confirm('Are you sure want to delete {{$content->name}} ?')">Delete</button>
+                        onclick="return confirm('Are you sure want to delete this news ?')">Delete</button>
                 </form>
             </td>
         </tr>
