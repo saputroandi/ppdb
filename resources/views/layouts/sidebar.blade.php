@@ -11,6 +11,24 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0" />
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true"
+            aria-controls="collapseUser">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>User</span>
+        </a>
+        <div id="collapseUser" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">User:</h6>
+                @if(Auth::user()->role_id == 1)
+                <a class="collapse-item" href="/user/show">All User</a>
+                @else
+                <a class="collapse-item" href="/user/show">My Profile</a>
+                @endif
+            </div>
+        </div>
+    </li>
+    <hr class="sidebar-divider my-0" />
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
             aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-tachometer-alt"></i>

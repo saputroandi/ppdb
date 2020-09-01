@@ -93,6 +93,7 @@ Route::group([
     Route:: patch('/update/{id}','Web\PaymentDetailsController@updatePaymentDetails');
     Route:: delete('/delete/{id}','Web\PaymentDetailsController@deletePaymentDetails');
 });
+
 Route::group([
     'middleware' => 'auth',
     'prefix'     => 'schedule',
@@ -103,4 +104,14 @@ Route::group([
     Route:: get('/input','Web\ScheduleController@inputSchedule');
     Route:: patch('/update/{id}','Web\ScheduleController@updateSchedule');
     Route:: delete('/delete/{id}','Web\ScheduleController@deleteSchedule');
+});
+
+Route::group([
+    'middleware' => 'auth',
+    'prefix'     => 'user',
+    ],function(){
+    Route:: get('/show','Web\UsersController@showAllUser');
+    Route:: get('/show/{id}','Web\UsersController@showUser');
+    Route:: get('/show/{id}/edit','Web\UsersController@editProfil');
+    Route:: patch('/update/{id}','Web\UsersController@updateProfil');
 });

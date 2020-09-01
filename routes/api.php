@@ -102,9 +102,3 @@ Route::group([
     Route:: patch('/update/{id}','Api\MajorInterestController@updateInterest');
     Route:: delete('/delete/{id}','Api\MajorInterestController@deleteInterest');
 });
-// Route::group([
-//     'middleware' => 'auth.jwt',
-//     'prefix'     => 'session',
-//     ],function(){
-//     Route:: get('/test/{id}','Api\SessionRegisController@sessionRegis');
-// });
